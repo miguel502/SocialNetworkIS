@@ -7,9 +7,11 @@ class ExampleTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testBasicExample(){
-		//$crawler = $this->client->request('GET', '/');
+	public function testBasicExample()
+	{
+		$crawler = $this->client->request('GET', '/');
 
-		//$this->assertTrue($this->client->getResponse()->isOk());
+		$this->assertTrue($this->client->getResponse()->isOk());
 	}
+
 }

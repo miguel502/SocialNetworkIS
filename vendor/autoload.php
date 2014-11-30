@@ -4,20 +4,4 @@
 
 require_once __DIR__ . '/composer' . '/autoload_real.php';
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-return ComposerAutoloaderInit6789933bab4a9c6b7946ffbd249885d2::getLoader();
-=======
-return ComposerAutoloaderInite2b997edd2c29ce68caec03af048d0d2::getLoader();
->>>>>>> Stashed changes
-=======
 return ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343::getLoader();
->>>>>>> parent of 318e3ef... Agregar la clase project
-=======
-return ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343::getLoader();
->>>>>>> parent of 318e3ef... Agregar la clase project
-=======
-return ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343::getLoader();
->>>>>>> parent of 318e3ef... Agregar la clase project
