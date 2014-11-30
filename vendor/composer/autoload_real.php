@@ -4,11 +4,15 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 class ComposerAutoloaderInit6789933bab4a9c6b7946ffbd249885d2
 =======
 class ComposerAutoloaderInite2b997edd2c29ce68caec03af048d0d2
 >>>>>>> Stashed changes
+=======
+class ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343
+>>>>>>> parent of 318e3ef... Agregar la clase project
 =======
 class ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343
 >>>>>>> parent of 318e3ef... Agregar la clase project
@@ -33,6 +37,7 @@ class ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         spl_autoload_register(array('ComposerAutoloaderInit6789933bab4a9c6b7946ffbd249885d2', 'loadClassLoader'), true, true);
         self::$loader = $loader = new \Composer\Autoload\ClassLoader();
@@ -42,6 +47,11 @@ class ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343
         self::$loader = $loader = new \Composer\Autoload\ClassLoader();
         spl_autoload_unregister(array('ComposerAutoloaderInite2b997edd2c29ce68caec03af048d0d2', 'loadClassLoader'));
 >>>>>>> Stashed changes
+=======
+        spl_autoload_register(array('ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343', 'loadClassLoader'), true, true);
+        self::$loader = $loader = new \Composer\Autoload\ClassLoader();
+        spl_autoload_unregister(array('ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343', 'loadClassLoader'));
+>>>>>>> parent of 318e3ef... Agregar la clase project
 =======
         spl_autoload_register(array('ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343', 'loadClassLoader'), true, true);
         self::$loader = $loader = new \Composer\Autoload\ClassLoader();
@@ -78,11 +88,15 @@ class ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343
         foreach ($includeFiles as $file) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
             composerRequire6789933bab4a9c6b7946ffbd249885d2($file);
 =======
             composerRequiree2b997edd2c29ce68caec03af048d0d2($file);
 >>>>>>> Stashed changes
+=======
+            composerRequireb5965eca1dbccfc5ac4283a0da881343($file);
+>>>>>>> parent of 318e3ef... Agregar la clase project
 =======
             composerRequireb5965eca1dbccfc5ac4283a0da881343($file);
 >>>>>>> parent of 318e3ef... Agregar la clase project
@@ -97,11 +111,15 @@ class ComposerAutoloaderInitb5965eca1dbccfc5ac4283a0da881343
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 function composerRequire6789933bab4a9c6b7946ffbd249885d2($file)
 =======
 function composerRequiree2b997edd2c29ce68caec03af048d0d2($file)
 >>>>>>> Stashed changes
+=======
+function composerRequireb5965eca1dbccfc5ac4283a0da881343($file)
+>>>>>>> parent of 318e3ef... Agregar la clase project
 =======
 function composerRequireb5965eca1dbccfc5ac4283a0da881343($file)
 >>>>>>> parent of 318e3ef... Agregar la clase project
