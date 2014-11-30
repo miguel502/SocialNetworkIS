@@ -1,0 +1,15 @@
+#
+# OS X noise
+#
+
+.DS_Store
+Icon
+.Spotlight-V100
+.Trashes
+
+
+# php ignore
+autoload.php
+vendor/autoload.php
+
+vendor/autoload.php
