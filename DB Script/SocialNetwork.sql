@@ -2,10 +2,10 @@
 -- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 30-11-2014 a las 22:37:56
--- Versión del servidor: 5.6.20
--- Versión de PHP: 5.5.15
+-- Host: localhost
+-- Generation Time: Dec 01, 2014 at 12:14 AM
+-- Server version: 5.6.20
+-- PHP Version: 5.5.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,18 +17,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `SocialNetwork2`
+-- Database: `SocialNetwork`
 --
-CREATE DATABASE IF NOT EXISTS `SocialNetwork` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `SocialNetwork`;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `checklist`
+-- Table structure for table `checklist`
 --
 
-DROP TABLE IF EXISTS `checklist`;
 CREATE TABLE IF NOT EXISTS `checklist` (
 `id` int(11) NOT NULL,
   `title` varchar(45) DEFAULT NULL
@@ -37,10 +34,9 @@ CREATE TABLE IF NOT EXISTS `checklist` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `checklist_item`
+-- Table structure for table `checklist_item`
 --
 
-DROP TABLE IF EXISTS `checklist_item`;
 CREATE TABLE IF NOT EXISTS `checklist_item` (
 `id` int(11) NOT NULL,
   `checklist_id` int(11) NOT NULL,
@@ -50,10 +46,9 @@ CREATE TABLE IF NOT EXISTS `checklist_item` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `post`
+-- Table structure for table `post`
 --
 
-DROP TABLE IF EXISTS `post`;
 CREATE TABLE IF NOT EXISTS `post` (
 `id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL
@@ -62,10 +57,9 @@ CREATE TABLE IF NOT EXISTS `post` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `post_checklist_item`
+-- Table structure for table `post_checklist_item`
 --
 
-DROP TABLE IF EXISTS `post_checklist_item`;
 CREATE TABLE IF NOT EXISTS `post_checklist_item` (
 `id` int(11) NOT NULL,
   `checklist_item_id` int(11) NOT NULL,
@@ -76,45 +70,41 @@ CREATE TABLE IF NOT EXISTS `post_checklist_item` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `post_version`
+-- Table structure for table `post_version`
 --
 
-DROP TABLE IF EXISTS `post_version`;
 CREATE TABLE IF NOT EXISTS `post_version` (
 `id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
   `text` varchar(250) NOT NULL,
   `image_url` varchar(250) DEFAULT NULL,
   `publication_date` datetime NOT NULL,
-  `version_author` int(11) DEFAULT NULL,
   `approval_state` varchar(45) DEFAULT NULL,
   `commet` varchar(45) DEFAULT NULL,
-  `pending` varchar(45) DEFAULT NULL
+  `pending` varchar(45) DEFAULT NULL,
+  `users_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `project`
+-- Table structure for table `project`
 --
 
-DROP TABLE IF EXISTS `project`;
 CREATE TABLE IF NOT EXISTS `project` (
 `id` int(11) NOT NULL COMMENT 'Id único del proyecto.',
   `client_id` int(11) NOT NULL COMMENT 'id de identificación del cliente del proyecto.',
   `name` varchar(45) NOT NULL COMMENT 'Nombre del proyecto.',
   `description` varchar(45) DEFAULT NULL COMMENT 'Descripción del proyecto',
-  `active` varchar(45) DEFAULT '1' COMMENT 'Indica si el proyecto se encuentra activo o no.',
-  `projectcol` varchar(45) DEFAULT NULL
+  `active` varchar(45) DEFAULT '1' COMMENT 'Indica si el proyecto se encuentra activo o no.'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `project_user_role`
+-- Table structure for table `project_user_role`
 --
 
-DROP TABLE IF EXISTS `project_user_role`;
 CREATE TABLE IF NOT EXISTS `project_user_role` (
   `id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL,
@@ -126,10 +116,9 @@ CREATE TABLE IF NOT EXISTS `project_user_role` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `project_user_role_post`
+-- Table structure for table `project_user_role_post`
 --
 
-DROP TABLE IF EXISTS `project_user_role_post`;
 CREATE TABLE IF NOT EXISTS `project_user_role_post` (
 `id` int(10) unsigned NOT NULL,
   `post_id` int(11) NOT NULL,
@@ -139,10 +128,9 @@ CREATE TABLE IF NOT EXISTS `project_user_role_post` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `role`
+-- Table structure for table `role`
 --
 
-DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
 `id` int(11) NOT NULL,
   `title` varchar(45) NOT NULL,
@@ -152,10 +140,9 @@ CREATE TABLE IF NOT EXISTS `role` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `stage`
+-- Table structure for table `stage`
 --
 
-DROP TABLE IF EXISTS `stage`;
 CREATE TABLE IF NOT EXISTS `stage` (
 `id` int(11) NOT NULL COMMENT 'Id único de etapa',
   `project_id` int(11) NOT NULL COMMENT 'Número de identificación del proyecto',
@@ -168,10 +155,9 @@ CREATE TABLE IF NOT EXISTS `stage` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Users`
+-- Table structure for table `Users`
 --
 
-DROP TABLE IF EXISTS `Users`;
 CREATE TABLE IF NOT EXISTS `Users` (
 `id` int(11) NOT NULL,
   `default_role_id` int(11) NOT NULL,
@@ -187,10 +173,9 @@ CREATE TABLE IF NOT EXISTS `Users` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `workflow`
+-- Table structure for table `workflow`
 --
 
-DROP TABLE IF EXISTS `workflow`;
 CREATE TABLE IF NOT EXISTS `workflow` (
 `id` int(11) NOT NULL,
   `stage_id` int(11) NOT NULL,
@@ -203,10 +188,9 @@ CREATE TABLE IF NOT EXISTS `workflow` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `workflow_stage`
+-- Table structure for table `workflow_stage`
 --
 
-DROP TABLE IF EXISTS `workflow_stage`;
 CREATE TABLE IF NOT EXISTS `workflow_stage` (
 `id` int(11) NOT NULL,
   `workflow_id` int(11) NOT NULL,
@@ -214,182 +198,183 @@ CREATE TABLE IF NOT EXISTS `workflow_stage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `checklist`
+-- Indexes for table `checklist`
 --
 ALTER TABLE `checklist`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQUE_id` (`id`);
 
 --
--- Indices de la tabla `checklist_item`
+-- Indexes for table `checklist_item`
 --
 ALTER TABLE `checklist_item`
  ADD PRIMARY KEY (`id`,`description`), ADD KEY `Checklist_item_idx` (`checklist_id`);
 
 --
--- Indices de la tabla `post`
+-- Indexes for table `post`
 --
 ALTER TABLE `post`
  ADD PRIMARY KEY (`id`), ADD KEY `post_proyect_idx` (`project_id`);
 
 --
--- Indices de la tabla `post_checklist_item`
+-- Indexes for table `post_checklist_item`
 --
 ALTER TABLE `post_checklist_item`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQUE_id` (`id`), ADD KEY `post_checklist_item_idx` (`checklist_item_id`), ADD KEY `post_checklist_item_version_idx` (`post_version_id`);
 
 --
--- Indices de la tabla `post_version`
+-- Indexes for table `post_version`
 --
 ALTER TABLE `post_version`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `I_UNIQUE` (`id`), ADD KEY `post_version_post_idx` (`post_id`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `I_UNIQUE` (`id`), ADD KEY `post_version_post_idx` (`post_id`), ADD KEY `users_id` (`users_id`);
 
 --
--- Indices de la tabla `project`
+-- Indexes for table `project`
 --
 ALTER TABLE `project`
  ADD PRIMARY KEY (`id`,`name`), ADD UNIQUE KEY `UNIQUE_id` (`id`);
 
 --
--- Indices de la tabla `project_user_role`
+-- Indexes for table `project_user_role`
 --
 ALTER TABLE `project_user_role`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQUE_id` (`id`), ADD KEY `project_user_role_idx` (`role_id`), ADD KEY `project_user_user_idx` (`user_id`), ADD KEY `project_user_role_project_idx` (`project_id`);
 
 --
--- Indices de la tabla `project_user_role_post`
+-- Indexes for table `project_user_role_post`
 --
 ALTER TABLE `project_user_role_post`
  ADD PRIMARY KEY (`id`), ADD KEY `Post_u_r_p_post_idx` (`post_id`);
 
 --
--- Indices de la tabla `role`
+-- Indexes for table `role`
 --
 ALTER TABLE `role`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQUE_id` (`id`);
 
 --
--- Indices de la tabla `stage`
+-- Indexes for table `stage`
 --
 ALTER TABLE `stage`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQUE_id` (`id`), ADD KEY `checklist_id` (`checklist_id`), ADD KEY `project_id` (`project_id`), ADD KEY `Project_stage_idx` (`project_id`);
 
 --
--- Indices de la tabla `Users`
+-- Indexes for table `Users`
 --
 ALTER TABLE `Users`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username_UNIQUE` (`username`), ADD UNIQUE KEY `UNIQUE_id` (`id`), ADD KEY `default_role_id` (`default_role_id`);
 
 --
--- Indices de la tabla `workflow`
+-- Indexes for table `workflow`
 --
 ALTER TABLE `workflow`
  ADD PRIMARY KEY (`id`), ADD KEY `workflow_role_idx` (`rol_id`);
 
 --
--- Indices de la tabla `workflow_stage`
+-- Indexes for table `workflow_stage`
 --
 ALTER TABLE `workflow_stage`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQUE_id` (`id`), ADD KEY `workflow_stage_workflow_idx` (`workflow_id`), ADD KEY `workflow_stage_stage_idx` (`stage_id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `checklist`
+-- AUTO_INCREMENT for table `checklist`
 --
 ALTER TABLE `checklist`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT de la tabla `checklist_item`
+-- AUTO_INCREMENT for table `checklist_item`
 --
 ALTER TABLE `checklist_item`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT de la tabla `post`
+-- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de la tabla `post_checklist_item`
+-- AUTO_INCREMENT for table `post_checklist_item`
 --
 ALTER TABLE `post_checklist_item`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `post_version`
+-- AUTO_INCREMENT for table `post_version`
 --
 ALTER TABLE `post_version`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de la tabla `project`
+-- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id único del proyecto.',AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT de la tabla `project_user_role_post`
+-- AUTO_INCREMENT for table `project_user_role_post`
 --
 ALTER TABLE `project_user_role_post`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `role`
+-- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de la tabla `stage`
+-- AUTO_INCREMENT for table `stage`
 --
 ALTER TABLE `stage`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id único de etapa',AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT de la tabla `Users`
+-- AUTO_INCREMENT for table `Users`
 --
 ALTER TABLE `Users`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT de la tabla `workflow`
+-- AUTO_INCREMENT for table `workflow`
 --
 ALTER TABLE `workflow`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `workflow_stage`
+-- AUTO_INCREMENT for table `workflow_stage`
 --
 ALTER TABLE `workflow_stage`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `checklist_item`
+-- Constraints for table `checklist_item`
 --
 ALTER TABLE `checklist_item`
 ADD CONSTRAINT `Checklist_item` FOREIGN KEY (`checklist_id`) REFERENCES `checklist` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `post`
+-- Constraints for table `post`
 --
 ALTER TABLE `post`
 ADD CONSTRAINT `project_post` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `post_checklist_item`
+-- Constraints for table `post_checklist_item`
 --
 ALTER TABLE `post_checklist_item`
 ADD CONSTRAINT `post_checklist_item` FOREIGN KEY (`checklist_item_id`) REFERENCES `checklist_item` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `post_checklist_item_version` FOREIGN KEY (`post_version_id`) REFERENCES `post_version` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `post_version`
+-- Constraints for table `post_version`
 --
 ALTER TABLE `post_version`
+ADD CONSTRAINT `post_version_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `Users` (`id`),
 ADD CONSTRAINT `post_version_post` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `project_user_role`
+-- Constraints for table `project_user_role`
 --
 ALTER TABLE `project_user_role`
 ADD CONSTRAINT `project_user_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -397,32 +382,32 @@ ADD CONSTRAINT `project_user_role_project` FOREIGN KEY (`project_id`) REFERENCES
 ADD CONSTRAINT `project_user_user` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `project_user_role_post`
+-- Constraints for table `project_user_role_post`
 --
 ALTER TABLE `project_user_role_post`
 ADD CONSTRAINT `Post_u_r_p_post` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `stage`
+-- Constraints for table `stage`
 --
 ALTER TABLE `stage`
 ADD CONSTRAINT `checklist_stage` FOREIGN KEY (`checklist_id`) REFERENCES `checklist` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `project_stage` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `Users`
+-- Constraints for table `Users`
 --
 ALTER TABLE `Users`
 ADD CONSTRAINT `User_role` FOREIGN KEY (`default_role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `workflow`
+-- Constraints for table `workflow`
 --
 ALTER TABLE `workflow`
 ADD CONSTRAINT `workflow_role` FOREIGN KEY (`rol_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `workflow_stage`
+-- Constraints for table `workflow_stage`
 --
 ALTER TABLE `workflow_stage`
 ADD CONSTRAINT `workflow_stage_stage` FOREIGN KEY (`stage_id`) REFERENCES `stage` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
