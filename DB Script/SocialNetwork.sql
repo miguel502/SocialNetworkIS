@@ -96,8 +96,7 @@ CREATE TABLE IF NOT EXISTS `project` (
   `client_id` int(11) NOT NULL COMMENT 'id de identificación del cliente del proyecto.',
   `name` varchar(45) NOT NULL COMMENT 'Nombre del proyecto.',
   `description` varchar(45) DEFAULT NULL COMMENT 'Descripción del proyecto',
-  `active` varchar(45) DEFAULT '1' COMMENT 'Indica si el proyecto se encuentra activo o no.',
-  `projectcol` varchar(45) DEFAULT NULL
+  `active` varchar(45) DEFAULT '1' COMMENT 'Indica si el proyecto se encuentra activo o no.'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
