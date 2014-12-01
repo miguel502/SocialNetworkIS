@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 01, 2014 at 12:14 AM
+-- Generation Time: Dec 01, 2014 at 02:48 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -76,13 +76,21 @@ CREATE TABLE IF NOT EXISTS `post_checklist_item` (
 CREATE TABLE IF NOT EXISTS `post_version` (
 `id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
-  `text` varchar(250) NOT NULL,
   `image_url` varchar(250) DEFAULT NULL,
   `publication_date` datetime NOT NULL,
   `approval_state` varchar(45) DEFAULT NULL,
-  `commet` varchar(45) DEFAULT NULL,
   `pending` varchar(45) DEFAULT NULL,
-  `users_id` int(11) DEFAULT NULL
+  `users_id` int(11) DEFAULT NULL,
+  `tipo` varchar(30) DEFAULT NULL,
+  `publico` varchar(30) DEFAULT NULL,
+  `objetivo` varchar(30) DEFAULT NULL,
+  `copy` varchar(200) DEFAULT NULL,
+  `hashtag` varchar(200) DEFAULT NULL,
+  `nota` varchar(200) DEFAULT NULL,
+  `textoarte_url` varchar(100) DEFAULT NULL,
+  `textoarte_text` varchar(500) DEFAULT NULL,
+  `fuente` varchar(50) DEFAULT NULL,
+  `workflow_id` int(11) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
@@ -98,6 +106,18 @@ CREATE TABLE IF NOT EXISTS `project` (
   `description` varchar(45) DEFAULT NULL COMMENT 'Descripción del proyecto',
   `active` varchar(45) DEFAULT '1' COMMENT 'Indica si el proyecto se encuentra activo o no.'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_stage`
+--
+
+CREATE TABLE IF NOT EXISTS `project_stage` (
+`id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
+  `stage_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -149,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `stage` (
   `title` varchar(45) NOT NULL COMMENT 'Título de la etapa',
   `description` varchar(45) DEFAULT NULL COMMENT 'Descripción de la etapa.',
   `position` int(11) NOT NULL COMMENT 'Identificador de posición de la etapa.',
-  `checklist_id` int(11) NOT NULL
+  `checklist_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
@@ -229,13 +249,19 @@ ALTER TABLE `post_checklist_item`
 -- Indexes for table `post_version`
 --
 ALTER TABLE `post_version`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `I_UNIQUE` (`id`), ADD KEY `post_version_post_idx` (`post_id`), ADD KEY `users_id` (`users_id`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `I_UNIQUE` (`id`), ADD KEY `post_version_post_idx` (`post_id`), ADD KEY `users_id` (`users_id`), ADD KEY `workflow_id` (`workflow_id`);
 
 --
 -- Indexes for table `project`
 --
 ALTER TABLE `project`
  ADD PRIMARY KEY (`id`,`name`), ADD UNIQUE KEY `UNIQUE_id` (`id`);
+
+--
+-- Indexes for table `project_stage`
+--
+ALTER TABLE `project_stage`
+ ADD PRIMARY KEY (`id`), ADD KEY `project_id` (`project_id`,`stage_id`), ADD KEY `stage_id` (`stage_id`);
 
 --
 -- Indexes for table `project_user_role`
@@ -314,6 +340,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 ALTER TABLE `project`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id único del proyecto.',AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `project_stage`
+--
+ALTER TABLE `project_stage`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `project_user_role_post`
 --
 ALTER TABLE `project_user_role_post`
@@ -370,8 +401,16 @@ ADD CONSTRAINT `post_checklist_item_version` FOREIGN KEY (`post_version_id`) REF
 -- Constraints for table `post_version`
 --
 ALTER TABLE `post_version`
+ADD CONSTRAINT `fk_workflow` FOREIGN KEY (`workflow_id`) REFERENCES `workflow_stage` (`id`),
 ADD CONSTRAINT `post_version_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `Users` (`id`),
 ADD CONSTRAINT `post_version_post` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `project_stage`
+--
+ALTER TABLE `project_stage`
+ADD CONSTRAINT `fk_project` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`),
+ADD CONSTRAINT `fk_stage` FOREIGN KEY (`stage_id`) REFERENCES `stage` (`id`);
 
 --
 -- Constraints for table `project_user_role`

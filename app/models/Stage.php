@@ -25,4 +25,3 @@ class Stage extends Eloquent {
     }
 
 }
->>>>>>> michael-stage
