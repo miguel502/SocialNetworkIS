@@ -1,23 +1,13 @@
-<<<<<<< HEAD
 <?php
-
 
 class Stage extends Eloquent {
 
 	/**
 	 * @brief La tabla de la base de datos usada por el modelo.
+	 * @author Michael Rosario
 	 *
 	 * @var string
 	 */
-	protected $table = 'stage';
-
-}
-=======
-<?php 
-
-class Stage extends Eloquent {
-
-    // Tabla que usa el modelo!
 	protected $table = 'stage';
 
 	protected $fillable = array('project_id', 'title', 'description', 'position', 'id_checklist');
