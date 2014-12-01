@@ -1,26 +1,30 @@
 <?php
 
-use Illuminate\Auth\UserTrait;
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableTrait;
-use Illuminate\Auth\Reminders\RemindableInterface;
+/*
+	@brief: Clase que representa un usuario de la base de datos.
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+*/
 
-	use UserTrait, RemindableTrait;
+class User extends Eloquent {
 
 	/**
-	 * The database table used by the model.
+	 * variable que almacena el nombre de la tabla  que va usar la clase.
 	 *
 	 * @var string
 	 */
-	protected $table = 'users';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
+	protected $table = 'Users';
+	/*
+	 *  @brief: Esta funcion retorna todos los post que contiene  este usuario 
+	 *	@return @posversion
 	 */
-	protected $hidden = array('password', 'remember_token');
-
+	public function getpostVersion(){
+		return $this->hasMany('post_version');
+	}
+	/*
+		@brief: Retorna todos los proyectos al que pertenece este usuario.
+		@return Projects  
+	*/
+	public function getProjects(){
+		return $this->belongsToMany('project', 'project_user_role', 'user_id', 'project_id');
+	}
 }
