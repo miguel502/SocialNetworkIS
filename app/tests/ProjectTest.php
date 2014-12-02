@@ -11,8 +11,8 @@ class ProjectTest extends TestCase {
 
     public function testNewProject()
     {
-    //	$project = true;
-    //	$this->assertTrue($project == true);
+    	$project = true;
+    	$this->assertTrue($project == true);
     }
     
     public function testGetProject()
@@ -22,7 +22,7 @@ class ProjectTest extends TestCase {
         $project = Project::GetProject($projectid);
         
          //$project = Project::find($projectid);
-
+        $this->assertTrue($project->name == 'Proyecto de curso');
         //$this->assertTrue($project.$name == 'proyecto de curso');
     }
 
