@@ -1,6 +1,6 @@
-<?php namespace app\models;
+<?php namespace models;
 
-use Eloquent;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 /**
 * @name      Project
 * @details    
@@ -12,7 +12,7 @@ class Project extends Eloquent {
 	
 
 	//Identificador para eloquent
-	protected $table = 'Project';
+	protected $table = 'project';
    
 
 	public function post(){
