@@ -1,25 +1,15 @@
 <?php
-	/**
-	*	@brief .
-	*	@autor Leonel Paulino
-	*	@param 
-	* 	@return .
-	*/
    /**
 	*	@brief  Clase que representa un usuario de la base de datos.
 	*	@autor  Leonel Paulino
 	*/
 
-<<<<<<< HEAD
    /**
 	*	@brief  Clase que representa un usuario de la base de datos.
 	*	@autor  Leonel Paulino
 	*/
 
-class User extends Eloquent {
-=======
 class User  extends Eloquent {
->>>>>>> Leonel-User
 
 	/**
 	 * variable que almacena el nombre de la tabla  que va usar la clase.
@@ -35,17 +25,10 @@ class User  extends Eloquent {
 	public function getpostVersion(){
 		return $this->hasMany('post_version');
 	}
-<<<<<<< HEAD
-	/*
-		@brief: Retorna todos los proyectos al que pertenece este usuario.
-		@autor Leonel Paulino
-		@return Projects  
-=======
 	/**
 	 *	@brief: Retorna todos los proyectos al que pertenece este usuario.
 	 *	@autor Leonel Paulino
 	 *	@return Projects  
->>>>>>> Leonel-User
 	*/
 	public function getProjects(){
 		return $this->belongsToMany('project', 'project_user_role', 'user_id', 'project_id');
