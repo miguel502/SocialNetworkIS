@@ -1,89 +1,74 @@
-<?php namespace Project;
+<?php namespace app\models;
 
+use Eloquent;
 /**
-* @brief      Project
-* @details    Esta clase aloja y 
-*
+* @name      Project
+* @details    
 * @author     Miguel Calderon
 * @date       28/11/2014
-* @version    v1.0
-*
-* @todo       Verificar como utilizaremos las base de dtos
-*
-* @bug        Errores conocidos de esta clase
-*
-* @exception  NombreDeLaExcepcionException
-*             Descripcion de la excepcion
-*             <code>condicion1</code> and
-*             <code>condicion2</code> o
-*             <code>condicion3</code>
-*
-* @see        Controller
-* @see        http://ellislab.com/codeigniter/user-guide/general/controllers.html
 */
 
-class Project extends Eloquent{
+class Project extends Eloquent {
 	
+
 	//Identificador para eloquent
 	protected $table = 'Project';
-	//Identificador unico por proyecto
-	public $ID;
-	
-	//Nombre del proyecto 
-	public $Name;
    
-	public function Post(){
 
-		this->$hasmany('post');
+	public function post(){
 
-	}
-
-	public function RedSocial(){
-
-		this->$hasmany('');
+		return $this->hasMany('post');
 
 	}
 
-	public function Project(){
+	public function getChecklist(){
 
-		this->$hasmany('red');
-
-	}
-
-		public function Project(){
-
-		this->$hasmany('proyect_user_role');
+		return $this->hasMany('checklist');
 
 	}
 
-	public function Project(){
+	public function getRedsocial(){
 
-		this->$hasmany('checklist');
+
+		return $this->hasMany('redsocial');
+	}
+
+	public function getUsers(){
+
+		return $this->$belongsToMany('users','client_id');
 
 	}
 
-
-    //Constructor de la clase
-	public function __construct($identifier ,$proyectName ) {
+    /*
+    *
+    * @brief Constructor de la clase
+    * @author Miguel Calderon
+    * @Param $proyectName Nombre del proyecto que se va a crear
+    * @Param $proyectDesc Descripcion del proyecto que se va a crear
+    * @return El objeto project creado
+    *
+    */
+	public static function newProject($proyectName ,$proyectDesc ) {
 		
-       $this->ID = $identifier;
-	   $this->Name = $ProyectName;
-	   
-	   DB::insert('insert into projects (id, name) values (?, ?)', array($identifier, $proyectName));
+       $this->name = $proyectName;
+	   $this->description = $proyectDescription;
+	   $this->save();
+
+	   return $this;
 	   
    	}
 	
 	//Funcion encargada de conseguir un proyecto
 	public static function GetProject($projectID){
 		
-		$project = DB::select('select * from projects where id = ?', array($projectID));
+		$project = Project::find($projectID);
 		return $project;
 	}
 	
 	//Function encargada de conseguir los proyectos de un usuario
 	public static function GetProjects($userID){
 		
-		$projects = DB::select('select * from projects where id = ?', array($userID));
+		
 		return $projects;
 		
 	}
