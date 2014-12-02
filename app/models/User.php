@@ -4,11 +4,6 @@
 	*	@autor  Leonel Paulino
 	*/
 
-   /**
-	*	@brief  Clase que representa un usuario de la base de datos.
-	*	@autor  Leonel Paulino
-	*/
-
 class User  extends Eloquent {
 
 	/**
