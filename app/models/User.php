@@ -1,11 +1,25 @@
 <?php
+	/**
+	*	@brief .
+	*	@autor Leonel Paulino
+	*	@param 
+	* 	@return .
+	*/
+   /**
+	*	@brief  Clase que representa un usuario de la base de datos.
+	*	@autor  Leonel Paulino
+	*/
 
+<<<<<<< HEAD
    /**
 	*	@brief  Clase que representa un usuario de la base de datos.
 	*	@autor  Leonel Paulino
 	*/
 
 class User extends Eloquent {
+=======
+class User  extends Eloquent {
+>>>>>>> Leonel-User
 
 	/**
 	 * variable que almacena el nombre de la tabla  que va usar la clase.
@@ -21,10 +35,17 @@ class User extends Eloquent {
 	public function getpostVersion(){
 		return $this->hasMany('post_version');
 	}
+<<<<<<< HEAD
 	/*
 		@brief: Retorna todos los proyectos al que pertenece este usuario.
 		@autor Leonel Paulino
 		@return Projects  
+=======
+	/**
+	 *	@brief: Retorna todos los proyectos al que pertenece este usuario.
+	 *	@autor Leonel Paulino
+	 *	@return Projects  
+>>>>>>> Leonel-User
 	*/
 	public function getProjects(){
 		return $this->belongsToMany('project', 'project_user_role', 'user_id', 'project_id');
@@ -49,5 +70,61 @@ class User extends Eloquent {
 		$this->email = $email;
 		$this->save();
 		return $this;
+	}
+	/**
+	*	@brief Esta clase se encarga de retorna un usuario de la base de datos dado el nombre de usuario.
+	*	@autor Leonel Paulino
+	*	@param username Nombre de usuario
+	* 	@return Un usuario.
+	*/
+	public static function getUser($username){
+		return User::where('username', '=',$username)->get();
+	}
+	/**
+	*	@brief Esta funcion se encarga de autetificar el usuario con su contraseña.
+	*	@autor Leonel Paulino
+	*	@param username nombre de usuario
+	*	@param password contraseña del usuario.
+	* 	@return el usuario  si se pudo autentificar de lo contrario retorna false.
+	*/
+	public static function authentication($username,$password){
+		return $this->getuser($username);
+	}
+	/**
+	*	@brief Esta funcion retorna todos los post pendiente del usuario.
+	*	@autor Leonel Paulino
+	* 	@return return yield. post .
+	*/
+	public function getPendingPost(){
+		$posts = $this->getpostVersion();
+		log::info('paso');
+		foreach ($post as $posts)
+		{
+			if ( $post->pending ){
+				yield $post;
+			}
+		}
+	}
+	/**
+	*	@brief Esta funcion retorna todos los proyectos activos en el que esta el usuario.
+	*	@autor Leonel Paulino
+	* 	@return return yield. projects .
+	*/
+	public function getActiveProjects(){
+		$projects = $this->getProjects();
+		foreach ($project as $projects)
+		{
+			if ( $project->active){
+				yield $project;
+			}
+		}
+	}
+	/**
+	*	@brief Esta funcion retorna todos los usuario de la base de datos.
+	*	@autor Leonel Paulino
+	* 	@return  users .
+	*/
+	public static function getAllUsers(){
+		return User::all();
 	}
 }
