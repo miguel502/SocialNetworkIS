@@ -30,7 +30,6 @@ class Post extends Eloquent {
 	}
 
 	/*
-	* @brief Las personas responsables de este post.
 	* @author Miguel Saiz
 	* @returns El listado de los responsables.
 	* @todo Revisar la documentacion del belong to many. 
@@ -38,4 +37,18 @@ class Post extends Eloquent {
 	public function responsible() {
 		return $this->belongsToMany('project_user_role', 'project_user_role_post');
 	}
+
+	/*
+	* @brief Crea un nuevo post en la base de datos dada un PostVersion.
+	* @author Miguel Saiz
+	* @returns El post creado.
+	*/
+	static public function newPost($project, $author, $postVersion) {
+		$this->project = $project;
+		$this->author = $postVersion;
+		$this->post_version = $postVersion;
+		$this->save();
+		return $this;
+	}
 }
+
