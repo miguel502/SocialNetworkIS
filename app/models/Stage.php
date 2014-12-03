@@ -30,7 +30,7 @@ class Stage extends Eloquent {
     * @returns id del workflow_stage. 
     * @note Requerido por post_version ~Miguel Saiz
     */
-    public static function nextWorkflow($workflow_stage_id) {
+    public static function nextWorkflow($postVersion, $workflow_stage_id) {
         //STUB: NOT IMPLEMENTED
     }
 
@@ -40,7 +40,7 @@ class Stage extends Eloquent {
     * @returns id del workflow_stage. 
     * @note Requerido por post_version ~Miguel Saiz
     */
-    public static function firstWorkflow($workflow_stage_id) {
+    public static function firstWorkflow($postVersion, $workflow_stage_id) {
         //STUB: NOT IMPLEMENTED
     }
 }
