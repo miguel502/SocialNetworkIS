@@ -12,7 +12,7 @@ class Post extends Eloquent {
 	protected $table = 'post';
 
 	/*
-	* @brief Las diferentes del post.
+	* @brief Las diferentes versiones del post actual.
 	* @author Miguel Saiz
 	* @returns El listado de todas las versiones.
 	*/
@@ -20,4 +20,35 @@ class Post extends Eloquent {
 		return $this->hasMany('post_version');
 	}
 
+	/*
+	* @brief El proyecto al que este post pertenece.
+	* @author Miguel Saiz
+	* @returns El proyecto.
+	*/
+	public function project() {
+		return $this->belongsTo('project');
+	}
+
+	/*
+	* @author Miguel Saiz
+	* @returns El listado de los responsables.
+	* @todo Revisar la documentacion del belong to many. 
+	*/
+	public function responsible() {
+		return $this->belongsToMany('project_user_role', 'project_user_role_post');
+	}
+
+	/*
+	* @brief Crea un nuevo post en la base de datos dada un PostVersion.
+	* @author Miguel Saiz
+	* @returns El post creado.
+	*/
+	static public function newPost($project, $author, $postVersion) {
+		$this->project = $project;
+		$this->author = $postVersion;
+		$this->post_version = $postVersion;
+		$this->save();
+		return $this;
+	}
 }
+

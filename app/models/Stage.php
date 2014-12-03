@@ -24,4 +24,23 @@ class Stage extends Eloquent {
     	return $model;
     }
 
+    /*
+    * @brief Retorna el id del proximo workflow_stage. 
+    * @author N/A
+    * @returns id del workflow_stage. 
+    * @note Requerido por post_version ~Miguel Saiz
+    */
+    public static function nextWorkflow($postVersion, $workflow_stage_id) {
+        //STUB: NOT IMPLEMENTED
+    }
+
+    /*
+    * @brief Retorna el id del principio del workflow_stage. 
+    * @author N/A
+    * @returns id del workflow_stage. 
+    * @note Requerido por post_version ~Miguel Saiz
+    */
+    public static function firstWorkflow($postVersion, $workflow_stage_id) {
+        //STUB: NOT IMPLEMENTED
+    }
 }
