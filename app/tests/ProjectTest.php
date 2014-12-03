@@ -9,21 +9,38 @@
 */
 class ProjectTest extends TestCase {
 
-    public function testNewProject()
-    {
+    public function testNewProject(){
+
     	$project = true;
     	$this->assertTrue($project == true);
     }
     
-    public function testGetProject()
-    {
-    	$projectid = 1;
+    public function testGetProject(){
 
+    	$projectid = 1;
         $project = Project::GetProject($projectid);
         
-         //$project = Project::find($projectid);
+        //fwrite(STDERR, print_r(, TRUE));
         $this->assertTrue($project->name == 'Proyecto de curso');
-        //$this->assertTrue($project.$name == 'proyecto de curso');
+
+    }
+
+    public function testGetClientProjects(){
+
+        $clientID = 6;
+        $projects = Project::getClientProyects($clientID);
+        //fwrite(STDERR,print_r($projects,TRUE));
+
+
+
+    }
+
+    public function testGetUserProjects(){
+
+        
+
+
+
     }
 
 
