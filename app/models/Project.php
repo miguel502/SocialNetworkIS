@@ -58,7 +58,7 @@ class Project extends Eloquent {
 	  *  @author Miguel Calderon
 	  *  @return @Proyects
 	 */
-	public function getClientProyects(){
+	public function getClientProjects(){
 
 		return $this->$belongsToMany('users','client_id');
 

@@ -27,18 +27,15 @@ class ProjectTest extends TestCase {
 
     public function testGetClientProjects(){
 
-        $clientID = 6;
-        $projects = Project::getClientProyects($clientID);
+        //$projectid = 6;
+        //$projects = Project::GetClientProjects($projectid);
         //fwrite(STDERR,print_r($projects,TRUE));
-
-
 
     }
 
     public function testGetUserProjects(){
 
         
-
 
 
     }
