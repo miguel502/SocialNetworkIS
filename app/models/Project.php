@@ -52,18 +52,18 @@ class Project extends Eloquent {
 
 		return $this->hasMany('redsocial');
 	}
-
+/*
 	/**
 	  *  @brief: Esta funcion retorna los proyectos asignados a un cliente
 	  *  @author Miguel Calderon
 	  *  @return @Proyects
-	 */
+	 *//*
 	public function getClientProjects(){
 
 		return $this->$belongsToMany('users','client_id');
 
 	}
-
+*/
 	/**
 	  *  @brief: Esta funcion retorna los proyectos asignados a un usuario
 	  *  @author Miguel Calderon
@@ -120,7 +120,7 @@ class Project extends Eloquent {
 	public static function GetClientProjects($client_ID){
 		
 	
-		$Projects = Project::where('client_id', '=', $client_ID)->get();
+		//$Projects = Project::where('client_id', '=', $client_ID)->get();
 
 		return $projects;
 		
