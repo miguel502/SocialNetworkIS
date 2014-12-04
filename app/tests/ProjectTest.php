@@ -13,14 +13,6 @@ class ProjectTest extends TestCase {
         //$this->assertTrue($project->name == 'Proyecto de curso');
     }
 
-    public function testGetProjectsByUser(){
-
-        $userId = 1;
-        $projects = Project::getProjectsByUser($userId);
-
-        fwrite(STDERR,print_r($projects,TRUE));
-        //$this->assertTrue(1==1);
-    }
     public function testGetUsers(){
 
         //$project = Project::getProject(1);
@@ -38,6 +30,16 @@ class ProjectTest extends TestCase {
         //$project = Project::getProject(1);
         //$posts = $project->getPost();
         //$this->assertTrue(1==1);
+    }
+
+    public function testGetlastPostVersion(){
+        
+            
+    }
+
+    public function testgetUsersByRole(){
+
+
     }
 
 
