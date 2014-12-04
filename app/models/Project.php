@@ -1,94 +1,145 @@
-<?php namespace Project;
+<?php
 
+use Illuminate\Database\Eloquent\Model as Eloquent;
 /**
-* @brief      Project
-* @details    Esta clase aloja y 
-*
+* @name      Project
+* @details    Esta contiene las relaciones y funcionalidades que tiene el
+* 			  proyecto en el sistema de Redes Sociales.
 * @author     Miguel Calderon
 * @date       28/11/2014
-* @version    v1.0
-*
-* @todo       Verificar como utilizaremos las base de dtos
-*
-* @bug        Errores conocidos de esta clase
-*
-* @exception  NombreDeLaExcepcionException
-*             Descripcion de la excepcion
-*             <code>condicion1</code> and
-*             <code>condicion2</code> o
-*             <code>condicion3</code>
-*
-* @see        Controller
-* @see        http://ellislab.com/codeigniter/user-guide/general/controllers.html
 */
 
-class Project extends Eloquent{
+class Project extends Eloquent {
 	
-	//Identificador para eloquent
-	protected $table = 'Project';
-	//Identificador unico por proyecto
-	public $ID;
-	
-	//Nombre del proyecto 
-	public $Name;
+
+	/**
+	 * variable que almacena el nombre de la tabla  que va usar la clase.
+	 *
+	 * @var string
+	 */
+	protected $table = 'project';
    
-	public function Post(){
 
-		this->$hasmany('post');
+	/**
+	  *  @brief: Esta funcion retorna todos los post que contiene este proyecto
+	  *  @author Miguel Calderon
+	  *  @return @post
+	 */
+	public function post(){
 
-	}
-
-	public function RedSocial(){
-
-		this->$hasmany('');
-
-	}
-
-	public function Project(){
-
-		this->$hasmany('red');
+		return $this->hasMany('post');
 
 	}
 
-		public function Project(){
+	/**
+	  *  @brief: Esta funcion retorna todos stages que contiene este proyecto
+	  *  @author Miguel Calderon
+	  *  @return @stage
+	 */
+	public function getStage(){
 
-		this->$hasmany('proyect_user_role');
+		return $this->hasMany('stage');
 
 	}
 
-	public function Project(){
+	/**
+	  *  @brief: Esta funcion retorna las redes sociales que contiene este proyecto
+	  *  @author Miguel Calderon
+	  *  @return @redSocial
+	 */
+	public function getRedsocial(){
 
-		this->$hasmany('checklist');
+
+		return $this->hasMany('redsocial');
+	}
+/*
+	/**
+	  *  @brief: Esta funcion retorna los proyectos asignados a un cliente
+	  *  @author Miguel Calderon
+	  *  @return @Proyects
+	 *//*
+	public function getClientProjects(){
+
+		return $this->$belongsToMany('users','client_id');
+
+	}
+*/
+	/**
+	  *  @brief: Esta funcion retorna los proyectos asignados a un usuario
+	  *  @author Miguel Calderon
+	  *  @return @Proyects
+	 */
+	public function getUserProyects(){
+
+		return $this->$belongsToMany('users', 'project_user_role', 'user_id', 'project_id');
 
 	}
 
-
-    //Constructor de la clase
-	public function __construct($identifier ,$proyectName ) {
+    /*
+    *
+    * @brief Crea un nuevo proyecto en la base de datos y lo retorna
+    * @author Miguel Calderon
+    * @Param $proyectName Nombre del proyecto que se va a crear
+    * @Param $proyectDesc Descripcion del proyecto que se va a crear
+    * @return El objeto project creado
+    *
+    */
+	public static function newProject($proyectName ,$proyectDesc ) {
 		
-       $this->ID = $identifier;
-	   $this->Name = $ProyectName;
-	   
-	   DB::insert('insert into projects (id, name) values (?, ?)', array($identifier, $proyectName));
+       $this->name = $proyectName;
+	   $this->description = $proyectDescription;
+	   $this->save();
+
+	   return $this;
 	   
    	}
 	
-	//Funcion encargada de conseguir un proyecto
+	/*
+    *
+    * @brief consigue un proyecto dado en base a su Identificador unico
+    * @author Miguel Calderon
+    * @Param $projectID la llave unica por la que se buscara el proyecto
+    * @return El proyecto al que pertenece el Id de entrada
+    *
+    */
 	public static function GetProject($projectID){
 		
-		$project = DB::select('select * from projects where id = ?', array($projectID));
+		$project = Project::findOrFail($projectID);
 		return $project;
 	}
 	
-	//Function encargada de conseguir los proyectos de un usuario
-	public static function GetProjects($userID){
+	/*
+    *
+    * @brief Devuelve la lista de proyectos de un cliente dado
+    * @author Miguel Calderon
+    * @Param $client_ID el identificador unico del cliente para buscar
+    * los proyectos que posee
+    * @return Los proyectos de este cliente
+    *
+    */
+	public static function GetClientProjects($client_ID){
 		
-		$projects = DB::select('select * from projects where id = ?', array($userID));
+	
+		//$Projects = Project::where('client_id', '=', $client_ID)->get();
+
 		return $projects;
 		
 	}
-	
-	public function flush(){return true;}
+
+	/*
+    *
+    * @brief Devuelve la lista de proyectos de un usuario dado
+    * @author Miguel Calderon
+    * @Param $userID el identificador unico del usuario para buscar
+    * los proyectos que posee
+    * @return Los proyectos de este usuario
+    *
+    */
+	public static function GetUserProjects($user_ID){
+		
+		//return $projects;
+		
+	}
 	
 }
 ?>

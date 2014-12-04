@@ -7,8 +7,7 @@
 * @author     Victor Peña
 * @date       30/11/2014
 * @version    v1.0
-*
-* @todo       
+*       
 *
 */
 
@@ -16,32 +15,45 @@ class Workflow{
 	
 	//Identificador de workflow en la BD
 	protected $table = 'Workflow';
-	
-	//Identificador unico por proyecto
-	public $Type;
    
     //Constructor de la clase
-	public function __construct($Typo) {
+	public static function newWorkflow($typo) {
 		
-       $this->Type = $Typo;
+       $this->type = $typo;
+	   $this->save();
 	   
-	   //
-	   
+	   return this;
    	}
 	
 	//Funcion encargada de añadir un Rol
-	public static function AddRole(){
-		
+	public static function AddRole($role){
 		
 	}
 	
-	//Function encargada de 
-	public static function RemoveRole($userID){
+	//Function encargada de remover un rol
+	public static function RemoveRole($role){
 		
+	}
+	
+	//Funcion encargada de intercambiar Roles
+	public static function ExchangeRole($role1, $role2){
 		
+	}
+	
+	public function getRole(){
+		return this->belongsTo('Role','role_id');
+	}
+	
+	public function getStage(){
+		return this->belongsToMany('Stage, workflow_stage');
+	}
+	
+	public function getPostVersion(){
+		return this->hasMany('Post_Version');
 	}
 	
 	public function flush(){return true;}
 	
 }
+
 ?>
