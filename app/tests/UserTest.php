@@ -28,14 +28,14 @@ class UserTest extends TestCase {
 	* Prueba la busqueda de usuarios por rol
 	*/
 	public function testGetUserByRole(){
-		$client = User::getUsersWithRoleID(5);
-		$this->assertTrue($users->count() == 1);
+		$group1 = User::getUsersWithRoleID(5);
+		$this->assertTrue($group1->count() == 1);
 
-		$client = User::getUsersWithRoleID(1);
-		$this->assertTrue($users->count() == 2);
+		$group2 = User::getUsersWithRoleID(1);
+		$this->assertTrue($group2->count() == 2);
 
-		$client = User::getUsersWithRoleID(10);
-		$this->assertTrue($users->count() == 0);
+		$group3 = User::getUsersWithRoleID(10);
+		$this->assertTrue($group3->count() == 0);
 	}
 
 	/**
@@ -81,14 +81,14 @@ class UserTest extends TestCase {
 	*/
 	public function testGetProjects() {
 		$user = User::getUser('msaiz');
-		$this->assertTrue($user->getProjects()->count() > 0);
+		$this->assertTrue(count($user->getProjects()) > 0);
 	}
 	/*
 	* Probar los responsables de un post
 	*/
-	public function testResponsables() {
+	public function testResponsible() {
 		$user = User::getUser('msaiz');
-		$this->assertTrue($user->responsibleForPosts()->count() > 0);
+		$this->assertTrue(count($user->responsibleForPosts()) > 0);
 	}
 
 	/*
@@ -96,6 +96,6 @@ class UserTest extends TestCase {
 	*/
 	public function testGetPosts() {
 		$user = User::getUser('lpaulino');
-		$this->assertTrue($user->getPosts()->count() > 0);
+		$this->assertTrue(count($user->getPosts()) > 0);
 	}
 }

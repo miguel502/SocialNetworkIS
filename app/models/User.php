@@ -4,7 +4,7 @@
 	*	@autor  Leonel Paulino
 	*/
 
-class User  extends Eloquent {
+class User extends Eloquent {
 
 	/**
 	 * variable que almacena el nombre de la tabla  que va usar la clase.
