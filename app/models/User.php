@@ -29,6 +29,19 @@ class User  extends Eloquent {
 			return $this->BelongsToMany('project','project_user_role','user_id','project_id');
 	}
 
+<<<<<<< HEAD
+=======
+	/*
+	* @brief Los posts de los que este usuario esta encargado.
+	* @author Miguel Saiz
+	* @returns El listado de los posts del que este es responsable.
+	* @todo Revisar la documentacion del belong to many. 
+	*/
+	public function responsibleForPosts() {
+		return $this->belongsToMany('post', 'project_user_role_post');
+	}
+	
+>>>>>>> FETCH_HEAD
 	/**
 	*	@brief: Crea un nuevo usuario en la base de datos y retorna el usuario creado. 
 	*	@autor Leonel Paulino

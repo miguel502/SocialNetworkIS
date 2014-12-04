@@ -1,9 +1,10 @@
-<?php namespace app\models;
+<?php
 
-use Eloquent;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 /**
 * @name      Project
-* @details    
+* @details    Esta contiene las relaciones y funcionalidades que tiene el
+* 			  proyecto en el sistema de Redes Sociales.
 * @author     Miguel Calderon
 * @date       28/11/2014
 */
@@ -11,37 +12,72 @@ use Eloquent;
 class Project extends Eloquent {
 	
 
-	//Identificador para eloquent
-	protected $table = 'Project';
+	/**
+	 * variable que almacena el nombre de la tabla  que va usar la clase.
+	 *
+	 * @var string
+	 */
+	protected $table = 'project';
    
 
+	/**
+	  *  @brief: Esta funcion retorna todos los post que contiene este proyecto
+	  *  @author Miguel Calderon
+	  *  @return @post
+	 */
 	public function post(){
 
 		return $this->hasMany('post');
 
 	}
 
-	public function getChecklist(){
+	/**
+	  *  @brief: Esta funcion retorna todos stages que contiene este proyecto
+	  *  @author Miguel Calderon
+	  *  @return @stage
+	 */
+	public function getStage(){
 
-		return $this->hasMany('checklist');
+		return $this->hasMany('stage');
 
 	}
 
+	/**
+	  *  @brief: Esta funcion retorna las redes sociales que contiene este proyecto
+	  *  @author Miguel Calderon
+	  *  @return @redSocial
+	 */
 	public function getRedsocial(){
 
 
 		return $this->hasMany('redsocial');
 	}
-
-	public function getUsers(){
+/*
+	/**
+	  *  @brief: Esta funcion retorna los proyectos asignados a un cliente
+	  *  @author Miguel Calderon
+	  *  @return @Proyects
+	 *//*
+	public function getClientProjects(){
 
 		return $this->$belongsToMany('users','client_id');
+
+	}
+*/
+	/**
+	  *  @brief: Esta funcion retorna los proyectos asignados a un usuario
+	  *  @author Miguel Calderon
+	  *  @return @Proyects
+	 */
+	public function getUserProyects(){
+
+		return $this->$belongsToMany('users', 'project_user_role', 'user_id', 'project_id');
 
 	}
 
     /*
     *
-    * @brief Constructor de la clase
+    * @brief Crea un nuevo proyecto en la base de datos y lo retorna
     * @author Miguel Calderon
     * @Param $proyectName Nombre del proyecto que se va a crear
     * @Param $proyectDesc Descripcion del proyecto que se va a crear
@@ -58,22 +94,52 @@ class Project extends Eloquent {
 	   
    	}
 	
-	//Funcion encargada de conseguir un proyecto
+	/*
+    *
+    * @brief consigue un proyecto dado en base a su Identificador unico
+    * @author Miguel Calderon
+    * @Param $projectID la llave unica por la que se buscara el proyecto
+    * @return El proyecto al que pertenece el Id de entrada
+    *
+    */
 	public static function GetProject($projectID){
 		
-		$project = Project::find($projectID);
+		$project = Project::findOrFail($projectID);
 		return $project;
 	}
 	
-	//Function encargada de conseguir los proyectos de un usuario
-	public static function GetProjects($userID){
+	/*
+    *
+    * @brief Devuelve la lista de proyectos de un cliente dado
+    * @author Miguel Calderon
+    * @Param $client_ID el identificador unico del cliente para buscar
+    * los proyectos que posee
+    * @return Los proyectos de este cliente
+    *
+    */
+	public static function GetClientProjects($client_ID){
 		
-		
+	
+		//$Projects = Project::where('client_id', '=', $client_ID)->get();
+
 		return $projects;
 		
 	}
-	
-	public function flush(){return true;}
+
+	/*
+    *
+    * @brief Devuelve la lista de proyectos de un usuario dado
+    * @author Miguel Calderon
+    * @Param $userID el identificador unico del usuario para buscar
+    * los proyectos que posee
+    * @return Los proyectos de este usuario
+    *
+    */
+	public static function GetUserProjects($user_ID){
+		
+		//return $projects;
+		
+	}
 	
 }
 ?>

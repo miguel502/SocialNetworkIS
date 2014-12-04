@@ -24,4 +24,25 @@ class Stage extends Eloquent {
     	return $model;
     }
 
+    /*
+    * @brief Crea una nueva version de post usando el id del proximo workflow_stage. 
+    * @author N/A
+    * @note Requerido por post_version ~Miguel Saiz
+    */
+    public static function nextWorkflow($postVersion, $workflow_stage_id) {
+        //STUB: NOT IMPLEMENTED
+        //Encontrar el workflow id correspondiente y llamar:
+        //PostVersion::newPostVersion($postVersion, $workflowId);
+    }
+
+    /*
+    * @brief Crea una nueva version de post usando el id del principio del workflow_stage. 
+    * @author N/A
+    * @note Requerido por post_version ~Miguel Saiz
+    */
+    public static function firstWorkflow($postVersion, $workflow_stage_id) {
+        //STUB: NOT IMPLEMENTED
+        //Encontrar el workflow id correspondiente y llamar:
+        //PostVersion::newPostVersion($postVersion, $workflowId);
+    }
 }
