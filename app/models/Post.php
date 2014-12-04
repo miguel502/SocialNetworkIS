@@ -50,5 +50,32 @@ class Post extends Eloquent {
 		$this->save();
 		return $this;
 	}
+
+	/*
+	* @brief Consigue el post dado un ID.
+	* @author Miguel Saiz
+	* @returns El post.
+	*/
+	public static function getPost($postId) {
+		return Post::Find(postId);
+	}
+
+	/*
+	* @brief Consigue la ultima version de un post dado un id.
+	* @author Miguel Saiz
+	* @returns El PostVersion.
+	*/
+	public static function getLastVersionByID($postId) {
+		return Post::getPost($postId)->versions->orderBy('created_at', $direction = 'des')->first();
+	}
+
+	/*
+	* @brief Consigue la ultima version de un post.
+	* @author Miguel Saiz
+	* @returns El PostVersion.
+	*/
+	public static function getLastVersion($post) {
+		return Post::getLastVersionByID($post->id);
+	}
 }
 
