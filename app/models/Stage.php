@@ -12,17 +12,24 @@ class Stage extends Eloquent {
 
 	protected $fillable = array('project_id', 'title', 'description', 'position', 'id_checklist');
 
-    public static function newStage($position, $project_id)
+    public function getWorkflowStage()
     {
-    	return true;
+        return $this->belongsTo('work_flow_stage');
     }
 
-    public static function getStage($position, $project_id)
-    {
-    	$model = User::where('position', '=', $position)->firstOrFail();
 
-    	return $model;
+    public function getProjectStage()
+    {
+        return $this->belongsTo('project_stage');
+    }
+
+    /*
+        @brief: Retorna todos los checklist al que pertenece la etapa.
+        @return Projects  
+        @autor Michael M. Rosario
+    */
+    public function getCheckList(){
+        return $this->belongsToMany('project', 'project_user_role', 'user_id', 'project_id');
     }
 
 }
->>>>>>> michael-stage
