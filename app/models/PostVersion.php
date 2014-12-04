@@ -48,6 +48,18 @@ class PostVersion extends Eloquent {
 	}
 
 	/*
+	* @brief Acepta esta version del post.
+	* @author Miguel Saiz
+	* @param user El usuario que aceptó el post.
+	*/
+	public function accept($user) {
+		$this->approval_state = 1;
+		$this->save();
+		Stage::nextWorkflow($this, $this->$workflow_stage_id);
+	}
+
+
+	/*
 	* @brief Rechaza esta version del post.
 	* @author Miguel Saiz
 	* @param user El usuario que rechazo el post.
@@ -57,18 +69,7 @@ class PostVersion extends Eloquent {
 		$this->approval_state = 0;
 		$this->feedback = $feedback;
 		$this->save();
-		Stage::nextWorkflow($this, $this->$workflow_stage_id);
-	}
-
-	/*
-	* @brief Acepta esta version del post.
-	* @author Miguel Saiz
-	* @param user El usuario que aceptó el post.
-	*/
-	public function accept($user) {
-		$this->approval_state = 1;
-		$this->save();
-		Stage::firstWorkflow($this, $this->$workflow_stage_id);
+		Stage::previousWorkflow($this, $this->$workflow_stage_id);
 	}
 
 	/*
@@ -78,12 +79,13 @@ class PostVersion extends Eloquent {
 	* @param workflowStageId El id del workflowstage actual.
 	* @returns El postversion creado.
 	*/
-	public static function newPostVersion($postVersion, $workflowStageId) {
-		$newPostVersion = new PostVersion();
+	public static function newVersion($postVersion, $workflowStageId) {
+		$newPostVersion = new PostVersion;
+		
+		//El copiado
 		$newPostVersion->post_id = $postVersion->$post_id;
 		$newPostVersion->image_url = $postVersion->$image_url;
 		$newPostVersion->publication_date = $postVersion->$publication_date;
-		$newPostVersion->pending = 1;
 		$newPostVersion->tipo = $postVersion->$tipo;
 		$newPostVersion->objetivo = $postVersion->$objetivo;
 		$newPostVersion->copy = $postVersion->$copy;
@@ -92,8 +94,16 @@ class PostVersion extends Eloquent {
 		$newPostVersion->textoarte_url = $postVersion->$textoarte_url;
 		$newPostVersion->textoarte_text = $postVersion->$textoarte_text;
 		$newPostVersion->fuente = $postVersion->$fuente;
+
+		//Los cambios para marcarlo como pendiente
+		$newPostVersion->pending = 1;
 		$newPostVersion->workflow_stage_id = $workflow_stage_id;
+
 		$newPostVersion->save();
 		return $newPostVersion;
+	}
+
+	public static function newPostVersion() {
+		
 	}
 }
