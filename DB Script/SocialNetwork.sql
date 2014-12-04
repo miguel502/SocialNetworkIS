@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 04, 2014 at 01:20 AM
+-- Generation Time: Dec 04, 2014 at 05:01 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -30,6 +30,8 @@ USE `SocialNetwork`;
 
 CREATE TABLE IF NOT EXISTS `post` (
 `id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   `project_id` int(11) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
@@ -37,8 +39,8 @@ CREATE TABLE IF NOT EXISTS `post` (
 -- Dumping data for table `post`
 --
 
-INSERT INTO `post` (`id`, `project_id`) VALUES
-(1, 2);
+INSERT INTO `post` (`id`, `created_at`, `updated_at`, `project_id`) VALUES
+(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -48,6 +50,8 @@ INSERT INTO `post` (`id`, `project_id`) VALUES
 
 CREATE TABLE IF NOT EXISTS `post_version` (
 `id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   `post_id` int(11) NOT NULL,
   `image_url` varchar(250) DEFAULT NULL,
   `publication_date` datetime NOT NULL,
@@ -71,8 +75,8 @@ CREATE TABLE IF NOT EXISTS `post_version` (
 -- Dumping data for table `post_version`
 --
 
-INSERT INTO `post_version` (`id`, `post_id`, `image_url`, `publication_date`, `approval_state`, `feedback`, `pending`, `users_id`, `tipo`, `publico`, `objetivo`, `copy`, `hashtag`, `nota`, `textoarte_url`, `textoarte_text`, `fuente`, `workflow_stage_id`) VALUES
-(1, 1, NULL, '2014-11-30 18:30:05', NULL, NULL, '1', 2, 'Blog post', 'Público en general', 'Información de salud', 'Consejos para comer saludablemente #AmaditaSalud #ConsejosAmadita', '#AmaditaSalud #ConsejosAmadita', NULL, NULL, 'Coma de manera saludable Coma sólo porque tiene hambre, no porque está aburrido, cansado o estresado. Utilice alternativas cuando no tiene hambre:', 'FamilyDoctor.gov', 1);
+INSERT INTO `post_version` (`id`, `created_at`, `updated_at`, `post_id`, `image_url`, `publication_date`, `approval_state`, `feedback`, `pending`, `users_id`, `tipo`, `publico`, `objetivo`, `copy`, `hashtag`, `nota`, `textoarte_url`, `textoarte_text`, `fuente`, `workflow_stage_id`) VALUES
+(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, NULL, '2014-11-30 18:30:05', NULL, NULL, '1', 2, 'Blog post', 'Público en general', 'Información de salud', 'Consejos para comer saludablemente #AmaditaSalud #ConsejosAmadita', '#AmaditaSalud #ConsejosAmadita', NULL, NULL, 'Coma de manera saludable Coma sólo porque tiene hambre, no porque está aburrido, cansado o estresado. Utilice alternativas cuando no tiene hambre:', 'FamilyDoctor.gov', 1);
 
 -- --------------------------------------------------------
 
@@ -82,6 +86,8 @@ INSERT INTO `post_version` (`id`, `post_id`, `image_url`, `publication_date`, `a
 
 CREATE TABLE IF NOT EXISTS `project` (
 `id` int(11) NOT NULL COMMENT 'Id único del proyecto.',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   `name` varchar(45) NOT NULL COMMENT 'Nombre del proyecto.',
   `description` varchar(45) DEFAULT NULL COMMENT 'Descripción del proyecto',
   `active` varchar(45) DEFAULT '1' COMMENT 'Indica si el proyecto se encuentra activo o no.'
@@ -91,9 +97,9 @@ CREATE TABLE IF NOT EXISTS `project` (
 -- Dumping data for table `project`
 --
 
-INSERT INTO `project` (`id`, `name`, `description`, `active`) VALUES
-(1, 'Proyecto de curso', NULL, '1'),
-(2, 'GBH', NULL, '1');
+INSERT INTO `project` (`id`, `created_at`, `updated_at`, `name`, `description`, `active`) VALUES
+(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Proyecto de curso', NULL, '1'),
+(2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'GBH', NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -103,6 +109,8 @@ INSERT INTO `project` (`id`, `name`, `description`, `active`) VALUES
 
 CREATE TABLE IF NOT EXISTS `project_user_role` (
 `id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   `project_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
@@ -113,17 +121,17 @@ CREATE TABLE IF NOT EXISTS `project_user_role` (
 -- Dumping data for table `project_user_role`
 --
 
-INSERT INTO `project_user_role` (`id`, `project_id`, `user_id`, `role_id`, `active`) VALUES
-(1, 1, 1, 2, 1),
-(2, 1, 2, 1, 1),
-(3, 1, 3, 3, 1),
-(4, 1, 4, 4, 1),
-(5, 1, 6, 5, 1),
-(6, 2, 1, 2, 1),
-(7, 2, 5, 1, 1),
-(8, 2, 3, 3, 1),
-(9, 2, 4, 4, 1),
-(10, 2, 6, 5, 1);
+INSERT INTO `project_user_role` (`id`, `created_at`, `updated_at`, `project_id`, `user_id`, `role_id`, `active`) VALUES
+(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 1, 2, 1),
+(2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 2, 1, 1),
+(3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 3, 3, 1),
+(4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 4, 4, 1),
+(5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 6, 5, 1),
+(6, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 1, 2, 1),
+(7, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 5, 1, 1),
+(8, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 3, 3, 1),
+(9, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 4, 4, 1),
+(10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 6, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -152,6 +160,8 @@ INSERT INTO `project_user_role_post` (`id`, `post_id`, `project_user_role_id`) V
 
 CREATE TABLE IF NOT EXISTS `role` (
 `id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   `title` varchar(45) NOT NULL,
   `description` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
@@ -160,12 +170,12 @@ CREATE TABLE IF NOT EXISTS `role` (
 -- Dumping data for table `role`
 --
 
-INSERT INTO `role` (`id`, `title`, `description`) VALUES
-(1, 'admin', 'El administrador del sistema.'),
-(2, 'community manager', 'El encargado de manejar los posts.'),
-(3, 'diseñador', 'Encargado de los diseños de los posts.'),
-(4, 'tester', 'Encargado de confirmar que el conteindo de los posts este correcto'),
-(5, 'cliente', 'Un cliente que contrata uno o varios proyectos');
+INSERT INTO `role` (`id`, `created_at`, `updated_at`, `title`, `description`) VALUES
+(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'admin', 'El administrador del sistema.'),
+(2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'community manager', 'El encargado de manejar los posts.'),
+(3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'diseñador', 'Encargado de los diseños de los posts.'),
+(4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'tester', 'Encargado de confirmar que el conteindo de los posts este correcto'),
+(5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'cliente', 'Un cliente que contrata uno o varios proyectos');
 
 -- --------------------------------------------------------
 
@@ -175,6 +185,8 @@ INSERT INTO `role` (`id`, `title`, `description`) VALUES
 
 CREATE TABLE IF NOT EXISTS `stage` (
 `id` int(11) NOT NULL COMMENT 'Id único de etapa',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   `project_id` int(11) NOT NULL COMMENT 'Número de identificación del proyecto',
   `title` varchar(45) NOT NULL COMMENT 'Título de la etapa',
   `description` varchar(45) DEFAULT NULL COMMENT 'Descripción de la etapa.',
@@ -185,9 +197,9 @@ CREATE TABLE IF NOT EXISTS `stage` (
 -- Dumping data for table `stage`
 --
 
-INSERT INTO `stage` (`id`, `project_id`, `title`, `description`, `position`) VALUES
-(1, 2, 'Creación de contenido', 'Aqui se crea el post.', 1),
-(2, 2, 'Diseño', 'Aqui se agrega la grafica del post.', 2);
+INSERT INTO `stage` (`id`, `created_at`, `updated_at`, `project_id`, `title`, `description`, `position`) VALUES
+(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'Creación de contenido', 'Aqui se crea el post.', 1),
+(2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'Diseño', 'Aqui se agrega la grafica del post.', 2);
 
 -- --------------------------------------------------------
 
@@ -197,6 +209,8 @@ INSERT INTO `stage` (`id`, `project_id`, `title`, `description`, `position`) VAL
 
 CREATE TABLE IF NOT EXISTS `users` (
 `id` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
   `default_role_id` int(11) NOT NULL,
   `username` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
@@ -211,13 +225,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `default_role_id`, `username`, `password`, `name`, `lastname`, `email`, `active`, `is_admin`) VALUES
-(1, 2, 'msaiz', 'miguel123', 'miguel', 'saiz', 'miguelsaizo@gmail.com', 1, '0'),
-(2, 1, 'lpaulino', 'leonel123', 'leonel', 'paulino', 'leonel.paulino@gmail.com', 1, '0'),
-(3, 3, 'mcalderon', 'miguel123', 'miguel', 'calderon', 'miguelcalderon6@gmail.com', 1, '0'),
-(4, 4, 'vpena', 'victor123', 'victor', 'peña', 'victor_13_@msn.com', 1, '0'),
-(5, 1, 'mrosario', 'michael123', 'michael', 'rosario', 'mchl0208@gmail.com', 1, '0'),
-(6, 5, 'jbonetti', 'bonetti123', 'jose', 'bonetti', 'jose.bonetti@gmail.com', 1, '0');
+INSERT INTO `users` (`id`, `created_at`, `updated_at`, `default_role_id`, `username`, `password`, `name`, `lastname`, `email`, `active`, `is_admin`) VALUES
+(1, 0, 0, 2, 'msaiz', 'miguel123', 'miguel', 'saiz', 'miguelsaizo@gmail.com', 1, '0'),
+(2, 0, 0, 1, 'lpaulino', 'leonel123', 'leonel', 'paulino', 'leonel.paulino@gmail.com', 1, '0'),
+(3, 0, 0, 3, 'mcalderon', 'miguel123', 'miguel', 'calderon', 'miguelcalderon6@gmail.com', 1, '0'),
+(4, 0, 0, 4, 'vpena', 'victor123', 'victor', 'peña', 'victor_13_@msn.com', 1, '0'),
+(5, 0, 0, 1, 'mrosario', 'michael123', 'michael', 'rosario', 'mchl0208@gmail.com', 1, '0'),
+(6, 0, 0, 5, 'jbonetti', 'bonetti123', 'jose', 'bonetti', 'jose.bonetti@gmail.com', 1, '0');
 
 -- --------------------------------------------------------
 
@@ -227,6 +241,8 @@ INSERT INTO `users` (`id`, `default_role_id`, `username`, `password`, `name`, `l
 
 CREATE TABLE IF NOT EXISTS `workflow` (
 `id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   `role_id` int(11) NOT NULL,
   `ui_type` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
@@ -235,13 +251,13 @@ CREATE TABLE IF NOT EXISTS `workflow` (
 -- Dumping data for table `workflow`
 --
 
-INSERT INTO `workflow` (`id`, `role_id`, `ui_type`) VALUES
-(1, 2, NULL),
-(2, 4, NULL),
-(3, 5, NULL),
-(4, 3, NULL),
-(5, 4, NULL),
-(6, 5, NULL);
+INSERT INTO `workflow` (`id`, `created_at`, `updated_at`, `role_id`, `ui_type`) VALUES
+(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, NULL),
+(2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4, NULL),
+(3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, NULL),
+(4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3, NULL),
+(5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4, NULL),
+(6, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -251,6 +267,8 @@ INSERT INTO `workflow` (`id`, `role_id`, `ui_type`) VALUES
 
 CREATE TABLE IF NOT EXISTS `workflow_stage` (
 `id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   `workflow_id` int(11) NOT NULL,
   `stage_id` int(11) NOT NULL,
   `position` int(11) NOT NULL
@@ -260,13 +278,13 @@ CREATE TABLE IF NOT EXISTS `workflow_stage` (
 -- Dumping data for table `workflow_stage`
 --
 
-INSERT INTO `workflow_stage` (`id`, `workflow_id`, `stage_id`, `position`) VALUES
-(1, 1, 1, 1),
-(2, 2, 1, 2),
-(3, 3, 1, 3),
-(4, 4, 2, 1),
-(5, 5, 2, 2),
-(6, 6, 2, 3);
+INSERT INTO `workflow_stage` (`id`, `created_at`, `updated_at`, `workflow_id`, `stage_id`, `position`) VALUES
+(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 1, 1),
+(2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 1, 2),
+(3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3, 1, 3),
+(4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4, 2, 1),
+(5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 2, 2),
+(6, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 6, 2, 3);
 
 --
 -- Indexes for dumped tables
