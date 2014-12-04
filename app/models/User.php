@@ -73,6 +73,7 @@ class User  extends Eloquent {
 			return NULL;
 		}
 	}
+
 	/**
 	*	@brief Esta funcion se encarga de autenticar el usuario con su contraseña.
 	*	@autor Leonel Paulino
@@ -109,5 +110,43 @@ class User  extends Eloquent {
 	*/
 	public static function getAllUsers(){
 		return User::all();
+	}
+
+	/*
+	*	@brief Esta clase se encarga de retorna un usuario de la base de datos dado el id del usuario.
+	*	@autor Leonel Paulino
+	*	@param userID El id de un usuario.
+	* 	@return Un usuario.
+	*/
+	public static function getUserWithID($userID) {
+		return null;
+	}
+	/*
+	*	@brief Esta clase se encarga de retorna un usuario de la base de datos dado el id del rol de los usuarios.
+	*	@autor Leonel Paulino
+	*	@param roleID El id del rol.
+	* 	@return Una lista de usuarios.
+	*/
+	public static function getUsersWithRoleID($roleID) {
+		return null;
+	}
+	/*
+	*	@brief Esta clase se encarga de retorna un usuario de la base de datos dado el rol de los usuarios.
+	*	@autor Miguel Saiz
+	*	@param role El rol.
+	* 	@return Una lista de usuarios.
+	*/
+	public static function getUsersWithRole($role) {
+		return User::getUserWithRole($role->$roleID);
+	}
+	/*
+	*	@brief Cambiar el password del usuario.
+	*	@autor Leonel Paulino
+	*	@param oldPass El password viejo.
+	*	@param newPass El password nuevo.
+	* 	@return True si se pudo cambiar.
+	*/
+	public static function changePassword($oldPass, $newPass) {
+		return false;
 	}
 }
