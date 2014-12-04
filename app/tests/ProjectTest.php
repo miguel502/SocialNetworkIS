@@ -1,39 +1,39 @@
 <?php
 
 
-/**
-* @name      ProjectTest
-* @details    
-* @author     Miguel Calderon
-* @date       02/12/2014
-*/
 class ProjectTest extends TestCase {
 
     public function testNewProject(){
-
-    	$project = true;
-    	$this->assertTrue($project == true);
+        $this->assertTrue(1==1);
+        // ARREGLAR
     }
     
     public function testGetProject(){
-
-    	$projectid = 1;
-        $project = Project::GetProject($projectid);
-        
-        //fwrite(STDERR, print_r(, TRUE));
+        $project = Project::getProject(1);
         $this->assertTrue($project->name == 'Proyecto de curso');
-
     }
 
     public function testGetUserProjects(){
-
-                //$projectid = 6;
-        //$projects = Project::GetClientProjects($projectid);
-        //fwrite(STDERR,print_r($projects,TRUE));
-
-
+        $this->assertTrue(1==1);
     }
+    public function testGetUsers(){
 
+        $project = Project::getProject(1);
+        //$users = $project->getUsers();
+        $this->assertTrue(1==1);
+    }
+        public function testGetStages(){
+
+        $project = Project::getProject(1);
+        //$stages = $project->getStages();
+        $this->assertTrue(1==1);
+    }
+        public function testGetPosts(){
+
+        $project = Project::getProject(1);
+        //$posts = $project->getPost();
+        $this->assertTrue(1==1);
+    }
 
 
 }
