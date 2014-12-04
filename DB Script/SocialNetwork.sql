@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 04, 2014 at 05:01 AM
+-- Generation Time: Dec 04, 2014 at 07:02 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -219,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(45) DEFAULT NULL,
   `active` int(11) NOT NULL DEFAULT '1',
   `is_admin` varchar(45) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `users`
@@ -244,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `workflow` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `role_id` int(11) NOT NULL,
-  `ui_type` varchar(45) DEFAULT NULL
+  `ui_type` int(11) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
@@ -318,7 +318,7 @@ ALTER TABLE `project_user_role`
 -- Indexes for table `project_user_role_post`
 --
 ALTER TABLE `project_user_role_post`
- ADD PRIMARY KEY (`id`), ADD KEY `Post_u_r_p_post_idx` (`post_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `Post_u_r_p_post_idx` (`post_id`), ADD KEY `project_user_role_id` (`project_user_role_id`);
 
 --
 -- Indexes for table `role`
@@ -393,7 +393,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id único de etapa',AUTO_IN
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `workflow`
 --
@@ -434,7 +434,8 @@ ADD CONSTRAINT `project_user_user` FOREIGN KEY (`user_id`) REFERENCES `Users` (`
 -- Constraints for table `project_user_role_post`
 --
 ALTER TABLE `project_user_role_post`
-ADD CONSTRAINT `Post_u_r_p_post` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_post` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_project_user_role` FOREIGN KEY (`project_user_role_id`) REFERENCES `project_user_role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `stage`
