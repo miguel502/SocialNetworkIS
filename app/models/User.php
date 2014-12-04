@@ -13,12 +13,12 @@ class User  extends Eloquent {
 	 */
 	protected $table = 'Users';
 	/**
-	  *  @brief: Esta funcion retorna todos los post que contiene  este usuario
+	  *  @brief: Esta funcion retorna todos los que este usuario ha hecho.
 	  *  @autor Leonel Paulino
-	  *  @return @posversion
+	  *  @return postversion
 	 */
-	public function getpostVersion(){
-		return $this->hasMany('post_version');
+	public function getPosts(){
+		return $this->hasMany('postversion');
 	}
 	/**
 	 *	@brief: Retorna todos los proyectos al que pertenece este usuario.
@@ -26,23 +26,20 @@ class User  extends Eloquent {
 	 *	@return Projects  
 	*/
 	public function getProjects(){
-		return $this->belongsToMany('project', 'project_user_role', 'user_id', 'project_id');
+			return $this->BelongsToMany('project','project_user_role','user_id','project_id');
 	}
-
 	/*
-	* @brief Los posts de los que este usuario esta encargado.
+	* @brief Retorna los posts de los que este usuario esta encargado.
 	* @author Miguel Saiz
-	* @returns El listado de los posts del que este es responsable.
-	* @todo Revisar la documentacion del belong to many. 
+	* @returns El listado de los posts del que este es responsable. 
 	*/
 	public function responsibleForPosts() {
-		return $this->belongsToMany('post', 'project_user_role_post');
+		return $this->belongsToMany('post', 'project_user_role_post','user_id','post_id');
 	}
-	
 	/**
 	*	@brief: Crea un nuevo usuario en la base de datos y retorna el usuario creado. 
 	*	@autor Leonel Paulino
-	*	@param nombre		nombre del usuario que se va crear
+	*	@param name		nombre del usuario que se va crear
 	*	@param lastname 	apellido del usuario que se va crear.
 	*	@param username 	nombre de usuario.
 	*	@param intialpass   contraseña del usuario.
@@ -50,15 +47,17 @@ class User  extends Eloquent {
 	*	@param email 		email del usuario.
 	*	@return User 		
 	*/
-	public static function newUser($nombre,$lastname,$username,$intialpass,$defaultid,$email){
-		$this->nombre = $nombre;
-		$this->lastname = $lastname;
-		$this->username = $username;
-		$this->password = $intialpass;
-		$this->default_role_id = $defaultid;
-		$this->email = $email;
-		$this->save();
-		return $this;
+	public static function newUser($name,$lastname,$username,$intialpass,$defaultid,$email){
+		$user = new User;
+		$user->name = $name;
+		$user->lastname = $lastname;
+		$user->username = $username;
+		$user->password = $intialpass;
+		$user->default_role_id = $defaultid;
+		$user->email = $email;
+		$user->active = 1;
+		$user->save();
+		return $user;
 	}
 	/**
 	*	@brief Esta clase se encarga de retorna un usuario de la base de datos dado el nombre de usuario.
@@ -67,17 +66,27 @@ class User  extends Eloquent {
 	* 	@return Un usuario.
 	*/
 	public static function getUser($username){
-		return User::where('username', '=',$username)->get();
+		try {
+			return User::where('username', '=',$username)->firstOrFail();
+		}
+		catch(Exception $e){
+			return NULL;
+		}
 	}
 	/**
-	*	@brief Esta funcion se encarga de autetificar el usuario con su contraseña.
+	*	@brief Esta funcion se encarga de autenticar el usuario con su contraseña.
 	*	@autor Leonel Paulino
 	*	@param username nombre de usuario
 	*	@param password contraseña del usuario.
-	* 	@return el usuario  si se pudo autentificar de lo contrario retorna false.
+	* 	@return retorna el usuario si se pudo autententicar de lo contrario retorna NULL.
 	*/
-	public static function authentication($username,$password){
-		return $this->getuser($username);
+	public static function authentication($username , $password){
+		$user = User::getUser($username);
+		if ( is_null($user) || $user->password != $password){
+			return NULL;
+		}
+		return $user; 
+		
 	}
 	/**
 	*	@brief Esta funcion retorna todos los post pendiente del usuario.
@@ -86,25 +95,10 @@ class User  extends Eloquent {
 	*/
 	public function getPendingPost(){
 		$posts = $this->getpostVersion();
-		log::info('paso');
 		foreach ($post as $posts)
 		{
 			if ( $post->pending ){
 				yield $post;
-			}
-		}
-	}
-	/**
-	*	@brief Esta funcion retorna todos los proyectos activos en el que esta el usuario.
-	*	@autor Leonel Paulino
-	* 	@return return yield. projects .
-	*/
-	public function getActiveProjects(){
-		$projects = $this->getProjects();
-		foreach ($project as $projects)
-		{
-			if ( $project->active){
-				yield $project;
 			}
 		}
 	}
