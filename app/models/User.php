@@ -135,7 +135,7 @@ class User  extends Eloquent {
 	*/
 	public static function getUsersWithRoleID($roleID) {
 			try {
-			 $users  = Users::where('default_role_id' ,'=', $roleID);
+			 $users  = User::where('default_role_id' ,'=', $roleID);
 			 return $users;
 			}
 			catch(Exception $e){
