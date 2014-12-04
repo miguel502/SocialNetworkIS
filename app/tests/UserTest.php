@@ -72,6 +72,30 @@ class UserTest extends TestCase {
 		$this->assertTrue(User::authentication('msaiz', 'miguel123') == null);
 
 		//Reiniciar el password
-		$this->assertTrue($user->changePassword('123123', 'miguel123'));
+		$user->password = 'miguel123';
+		$user->save();
+	}
+
+	/*
+	* Probar la obtención de proyectos
+	*/
+	public function testGetProjects() {
+		$user = User::getUser('msaiz');
+		$this->assertTrue($user->getProjects()->count() > 0);
+	}
+	/*
+	* Probar los responsables de un post
+	*/
+	public function testResponsables() {
+		$user = User::getUser('msaiz');
+		$this->assertTrue($user->responsibleForPosts()->count() > 0);
+	}
+
+	/*
+	* Probar la obtención de posts
+	*/
+	public function testGetPosts() {
+		$user = User::getUser('lpaulino');
+		$this->assertTrue($user->getPosts()->count() > 0);
 	}
 }
