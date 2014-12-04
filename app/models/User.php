@@ -159,8 +159,8 @@ class User extends Eloquent {
 	* 	@return True si se pudo cambiar.
 	*/
 	public function changePassword($oldPass, $newPass) {
-		if ($this->password == $oldpass){
-			$this->password = $newpass;
+		if ($this->password == $oldPass){
+			$this->password = $newPass;
 			$this->save();
 			return true;
 		}
