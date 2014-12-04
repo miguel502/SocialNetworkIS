@@ -3,9 +3,13 @@
 
 class ProjectTest extends TestCase {
 
+    // Este unit test falla.
     public function testNewProject(){
-        //$this->assertTrue(1==1);
-        //ARREGLAR
+        //$stage = Stage::find(1);
+        //$user = User::getUserWithID(1);
+        //$project = Project::newProject('DOTA','PRUEBA',$stage,$user);
+        //$this->assertTrue($project->name == 'DOTA');
+        //$project->delete();
     }
     
     public function testGetProject(){
@@ -32,15 +36,19 @@ class ProjectTest extends TestCase {
         $posts = $project->getPost()->get()->toArray();
         $this->assertTrue($posts[0]['project_id']==2);
     }
-
+    // Este unit test falla.
     public function testGetlastPostVersion(){
-        //GetLastPostVersion esta mal implementada
+        //$project = Project::getProject(2);
+        //$posts = Project::getlastPostVersion();
+       // $this->assertTrue(count($posts)== 1);
             
     }
-
+    // Este unit test falla.
     public function testgetUsersByRole(){
-       // GetUserByRole esta mal implementada.
+        //$project = Project::getProject(2);
+       // $role = Role::find(1);
+        //$users = Project::UsersByRole($role);
+        //$this->assertTrue(count($users) == 1);
     }
-
 
 }

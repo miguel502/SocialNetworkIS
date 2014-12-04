@@ -32,7 +32,6 @@ class Project extends Eloquent {
 	}
 
 	/**
-	  *  //ESTA CLASE EXPLOTA
 	  *  @brief: Esta funcion retorna todos stages que contiene este proyecto
 	  *  @author Miguel Calderon
 	  *  @return @stage
@@ -70,7 +69,6 @@ class Project extends Eloquent {
 	*	     version
 	* @author Miguel Calderon
 	* @return PostVersion
-	*  @TODO 
 	*/
 	public function getlastPostVersion(){
 
@@ -122,15 +120,13 @@ class Project extends Eloquent {
     * @Param $proyectDesc Descripcion del proyecto que se va a crear
     * @return El objeto project creado
     */
-	public static function newProject($proyectName ,$proyectDesc,$stages,$users,$socialNetwork ) {
+	public static function newProject($proyectName ,$proyectDesc,$stages,$users) {
 		
 		$nProject = new Project;
 		$nProject->name = $proyectName;
 		$nProject->description =  $proyectDesc;
 	    
 		$nProject->stage()->saveMany($stages);
-
-		$nProject->redSocial()->saveMany($socialNetwork);
 
 		$nProject->user()->attach($users);
 
