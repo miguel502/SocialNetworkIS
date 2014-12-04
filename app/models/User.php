@@ -116,25 +116,37 @@ class User  extends Eloquent {
 	*	@brief Esta clase se encarga de retorna un usuario de la base de datos dado el id del usuario.
 	*	@autor Leonel Paulino
 	*	@param userID El id de un usuario.
-	* 	@return Un usuario.
+	* 	@return Un usuario o null si el usuario no existe.
 	*/
 	public static function getUserWithID($userID) {
-		return null;
+		try {
+			$user = User::findOrFail($userID);
+			return $user;
+		}
+		catch(Exception $e){
+			return NULL;
+		} 
 	}
 	/*
 	*	@brief Esta clase se encarga de retorna un usuario de la base de datos dado el id del rol de los usuarios.
 	*	@autor Leonel Paulino
 	*	@param roleID El id del rol.
-	* 	@return Una lista de usuarios.
+	* 	@return Una lista de usuarios o null si no existe ninguno.
 	*/
 	public static function getUsersWithRoleID($roleID) {
-		return null;
+			try {
+			 $users  = Users::where('default_role_id' ,'=', $roleID);
+			 return $users;
+			}
+			catch(Exception $e){
+				return NULL;
+			}
 	}
 	/*
 	*	@brief Esta clase se encarga de retorna un usuario de la base de datos dado el rol de los usuarios.
 	*	@autor Miguel Saiz
 	*	@param role El rol.
-	* 	@return Una lista de usuarios.
+	* 	@return Una lista de usuarios o  null si no existe ninguno.
 	*/
 	public static function getUsersWithRole($role) {
 		return User::getUserWithRole($role->$roleID);
@@ -146,7 +158,14 @@ class User  extends Eloquent {
 	*	@param newPass El password nuevo.
 	* 	@return True si se pudo cambiar.
 	*/
-	public static function changePassword($oldPass, $newPass) {
-		return false;
+	public function changePassword($oldPass, $newPass) {
+		if ($this->password == $oldpass){
+			$this->password = $newpass;
+			$this->save();
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
