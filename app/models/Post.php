@@ -57,7 +57,7 @@ class Post extends Eloquent {
 	* @returns El post.
 	*/
 	public static function getPost($postId) {
-		return Post::Find(postId);
+		return Post::Find($postId);
 	}
 
 	/*
@@ -66,7 +66,7 @@ class Post extends Eloquent {
 	* @returns El PostVersion.
 	*/
 	public static function getLastVersionByID($postId) {
-		return Post::getPost($postId)->versions->orderBy('created_at', $direction = 'des')->first();
+		return Post::getPost($postId)->versions->orderBy('created_at', 'desc')->first();
 	}
 
 	/*
