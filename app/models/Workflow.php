@@ -32,7 +32,7 @@ class Workflow extends Eloquent{
 		$this->role_id = $role_id;
 		$this->save();
 		
-		return this;
+		return $this;
 	}
 	
 	//Function encargada de remover un rol
@@ -41,22 +41,26 @@ class Workflow extends Eloquent{
 		$this->role_id = NULL;
 		$this->save();
 		
-		return this;
+		return $this;
 	}
 	
 	//Funcion encargada de intercambiar Roles
-	public function exchangeRole($role1, $role2){
+	public function exchangeRole($role){
+        $this->role_id = $role;
+        $this->save();
+
+        return $this;
 
 	}
-	
+
 	public function getRole(){
 		return $this->belongsTo('role','role_id');
 	}
-	
+
 	public function getStage(){
 		return $this->belongsToMany('stage', 'workflow_stage', 'stage_id', 'workflow_id');
 	}
-	
+
 	public function getPostVersion(){
 		return $this->hasMany('post_version');
 	}
