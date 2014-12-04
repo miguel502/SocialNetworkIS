@@ -17,7 +17,7 @@ class Post extends Eloquent {
 	* @returns El listado de todas las versiones.
 	*/
 	public function versions() {
-		return $this->hasMany('post_version');
+		return $this->hasMany('post_version', 'post_id');
 	}
 
 	/*

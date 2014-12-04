@@ -9,14 +9,20 @@ class PostTest extends TestCase {
      */
      public function testVersions()
     {
-        $PostVer = Post::versions(); 
+        $PostVer = Post::getPost(1)->versions(); 
   		$this->assertTrue(count($PostVer->versions()) > 0);
 	}
 	
     public function testGetPost()
-    {	
+    {   
         $post = Post::getPost(1);
-	   
+       
+        $this->assertTrue($post->id==1);
+    }
+    public function testFindPost()
+    {   
+        $post = Post::Find(1);
+       
         $this->assertTrue($post->id==1);
     }
 	
