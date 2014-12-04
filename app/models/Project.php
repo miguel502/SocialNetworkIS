@@ -124,16 +124,42 @@ class Project extends Eloquent {
     * 
     *
     */
-	public static function newProject($proyectName ,$proyectDesc ) {
+	public static function newProject($proyectName ,$proyectDesc,$stages,$users,$socialNetwork ) {
 		
 		$nProject = new Project;
 		$nProject->name = $proyectName;
 		$nProject->description =  $proyectDesc;
-	    $nProject->save();
+	    
+		$nProject->stage()->saveMany($stages);
 
-	   return $nProject;
-	   
+		$nProject->redSocial()->saveMany($socialNetwork);
+
+		$nProject->user()->attach($users);
+
+		$nProject->push();
+
+		return $nProject;
    	}
+
+   	/*
+    * 
+    * @brief Agrega un nuevo post a un proyecto
+    * @author Miguel Calderon
+    * @Param $project_id el id del proyecto al que se agregara el post
+    * @Param $post post que se agregara al proyecto
+    * @return El proyecto ahora con nuevo post
+    * 
+    *
+    */
+	public static function addPostToProject($project_id,$post) {
+		
+		$project = Project::getProject($project_id);
+		$project->post()->save($post);
+		$project->push();
+
+		return $project;
+   	}
+
 	
 	/*
     *
