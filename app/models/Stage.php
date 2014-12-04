@@ -43,23 +43,57 @@ class Stage extends Eloquent {
 
     /*
     * @brief Crea una nueva version de post usando el id del proximo workflow_stage. 
-    * @author N/A
+    * @author Michael M. Rosario
     * @note Requerido por post_version ~Miguel Saiz
     */
     public static function nextWorkflow($postVersion, $workflow_stage_id) {
         //STUB: NOT IMPLEMENTED
         //Encontrar el workflow id correspondiente y llamar:
         //PostVersion::newPostVersion($postVersion, $workflowId);
+
+        //Obtengo el workflow de la etapa del post.
+        $workFlowStage = Workflow::getStage()->where('workflow_stage_id', '=', $postVersion->workflow_stage_id);
+        
+        //Del workflow anterior indentifico cuál es el paso siguiente de ese workflow.
+        $nextWorkFlowStage = workflow::getStage()->where('position', '=', $workFlowStage->position + 1)
+                                                 ->get();
+
+        //Si no existe un paso siguiente, se crea una nueva versión del post y se asigna a la ETAPA siguiente.
+        if ($nextWorkFlowStage == null)
+        {
+            PostVersion::newPostVersion($postVersion, $nextWorkFlowStage->id);
+        }
+        //En caso contrario se crea una nueva versión del post y se asigna al paso siguiente del WORKFLOW.
+        else if ($nextWorkFlowStage != null) {
+            $nextWorkflow = DB::table('workflow')
+                                            ->where('stage_id', '=', $workflow_stage_id)
+                                            ->where('id', '>', $postVersion->workflow_id)
+                                            ->orderBy('id', 'ASC')
+                                            ->first();
+
+            PostVersion::newPostVersion($postVersion, $nextWorkflow->id);
+
+        } 
+
     }
 
     /*
     * @brief Crea una nueva version de post usando el id del principio del workflow_stage. 
-    * @author N/A
+    * @author Michael M. Rosario
     * @note Requerido por post_version ~Miguel Saiz
     */
     public static function previousWorkflow($postVersion, $workflow_stage_id) {
-        //STUB: NOT IMPLEMENTED
-        //Encontrar el workflow id correspondiente y llamar:
-        //PostVersion::newPostVersion($postVersion, $workflowId);
+        //Obtengo el workflow de la etapa del post.
+        $workFlowStage = Workflow::getStage()->where('workflow_stage_id', '=', $postVersion->workflow_stage_id);
+        
+        //Del workflow anterior indentifico cuál es el paso anterior de ese workflow.
+        $previousWorkFlowStage = workflow::getStage()->where('position', '<', $workFlowStage->position)
+                                                     ->orderBy('position','DESC')
+                                                     ->first();
+
+        //Creo una nueva versión del post basado en el actual y lo asigno al paso anterior del workflow.
+        PostVersion::newPostVersion($postVersion, $previousWorkFlowStage->id);
+
+
     }
 }
