@@ -17,7 +17,7 @@ class Post extends Eloquent {
 	* @returns El listado de todas las versiones.
 	*/
 	public function versions() {
-		return $this->hasMany('post_version');
+		return $this->hasMany('postversion');
 	}
 
 	/*
@@ -43,8 +43,8 @@ class Post extends Eloquent {
 	* @author Miguel Saiz
 	* @returns El post creado.
 	*/
-	static public function newPost($project, $author, $postVersion) {
-		$this->project = $project;
+	static public function newPost($project, $postVersion) {
+		$this->project = $project->id;
 		$this->author = $postVersion;
 		$this->post_version = $postVersion;
 		$this->save();

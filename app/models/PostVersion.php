@@ -9,7 +9,7 @@ class PostVersion extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'post_version';
+	protected $table = 'postversion';
 
 	/*
 	* @brief El post original al que esta versión pertenece.
@@ -103,7 +103,37 @@ class PostVersion extends Eloquent {
 		return $newPostVersion;
 	}
 
-	public static function newPostVersion() {
-		
+	/*
+	* @brief Crear una version para un post nuevo.
+	* @author Miguel Saiz
+	* @param project El proyecto.
+	* @param author El pusuario que hizo la versión.
+	* @param publication_date La fecha de publicación del post.
+	* @param tipo El de post.
+	* @param objetivo El objetivo del post.
+	* @param copy El titulo que se agregará en la red social.
+	* @param hashtag Un texto con los hashtags del proyecto.
+	* @param nota Una nota.
+	* @param textoarte_text El contenido del post (texto).
+	* @param fuente La fuente de donde se extrajo.
+	*/
+	public static function newPostVersion($project, $author, $publication_date, $tipo, $objetivo, $copy, $hashtag, $nota, $textoarte_text, $fuente) {
+		$postVersion = new PostVersion;
+		$postVersion->users_id = $author;
+		$postVersion->publication_date = $publication_date;
+		$postVersion->tipo = $tipo;
+		$postVersion->objetivo = $objetivo;
+		$postVersion->copy = $copy;
+		$postVersion->hashtag = $hashtag;
+		$postVersion->nota = $nota;
+		$postVersion->textoarte_text = $textoarte_text;
+		$postVersion->fuente = $fuente;
+		$postVersion->save();
+
+		$post = new Post;
+		$post->post_version = $postVersion;
+		$post->save();
+
+		return $postVersion;
 	}
 }
