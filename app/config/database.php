@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'SocialNetwork',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => 'miguelon',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
