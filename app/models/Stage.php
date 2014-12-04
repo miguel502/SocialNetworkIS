@@ -12,12 +12,21 @@ class Stage extends Eloquent {
 
 	protected $fillable = array('project_id', 'title', 'description', 'position', 'id_checklist');
 
+    /*
+        @brief: Retorna todos los work_flow al que pertenece la etapa.
+        @return work_flow  
+        @autor Michael M. Rosario
+    */
     public function getWorkflowStage()
     {
         return $this->belongsTo('work_flow_stage');
     }
 
-
+    /*
+        @brief: Retorna todas las etapas asociadas al projecto.
+        @return Projects_stage
+        @autor Michael M. Rosario
+    */
     public function getProjectStage()
     {
         return $this->belongsTo('project_stage');
@@ -48,7 +57,7 @@ class Stage extends Eloquent {
     * @author N/A
     * @note Requerido por post_version ~Miguel Saiz
     */
-    public static function firstWorkflow($postVersion, $workflow_stage_id) {
+    public static function previousWorkflow($postVersion, $workflow_stage_id) {
         //STUB: NOT IMPLEMENTED
         //Encontrar el workflow id correspondiente y llamar:
         //PostVersion::newPostVersion($postVersion, $workflowId);
