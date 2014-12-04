@@ -25,7 +25,7 @@ class Project extends Eloquent {
 	  *  @author Miguel Calderon
 	  *  @return @post
 	 */
-	public function post(){
+	public function getPost(){
 
 		return $this->hasMany('post');
 
@@ -54,14 +54,14 @@ class Project extends Eloquent {
 	}
 
 	/**
-	  *   //ESTA FUNCION EXPLOTA!!!
+	  *  
 	  *  @brief: Esta funcion retorna los proyectos asignados a un usuario
 	  *  @author Miguel Calderon
 	  *  @return @Projects
 	 */
 	public function getUsers(){
 
-		return $this->$belongsToMany('users', 'project_user_role', 'user_id', 'project_id');
+		return $this->BelongsToMany('user', 'project_user_role', 'user_id', 'project_id');
 
 	}
 
@@ -73,8 +73,14 @@ class Project extends Eloquent {
 	*  @TODO 
 	*/
 	public function getlastPostVersion(){
-		
 
+		$posts = $this->getPost();
+
+		foreach($post as $posts){
+
+			yield Post::getlastPostVersion($post);
+
+		}
 			
 	}
 
@@ -87,19 +93,35 @@ class Project extends Eloquent {
 	 */
 	public function getUsersByRole($role){
 
-		$projectRole = Project::getUsers();
+		//Devuelve los ids de los users que tienen ese rol en el proyecto
+		$users = DB::select('select user_id from project_user_role where role_id = ?',array($role->role_id));
 
-		return Project::where('role_id', '=',$projectRole);
+
+		foreach($users as $user){
+
+			try {
+				
+				yield  Users::findOrFail($user);
+			
+			}
+
+			catch(Exception $e){
+		
+				return NULL;
+			}
+		
+		}
+
 	}
 
     /*
-    * // ARREGLAR ESTO 
+    * 
     * @brief Crea un nuevo proyecto en la base de datos y lo retorna
     * @author Miguel Calderon
     * @Param $proyectName Nombre del proyecto que se va a crear
     * @Param $proyectDesc Descripcion del proyecto que se va a crear
     * @return El objeto project creado
-    * // ARREGLAR ESTO 
+    * 
     *
     */
 	public static function newProject($proyectName ,$proyectDesc ) {
@@ -133,23 +155,6 @@ class Project extends Eloquent {
 		}
 	}
 
-	/*
-	*	//ESTA MALA ESTA FUNCION NO RETORNA PROYECTOS
-    * @brief Devuelve la lista de proyectos de un usuario dado
-    * @author Miguel Calderon
-    * @Param $userID el identificador unico del usuario para buscar
-    * los proyectos que posee
-    * @return Los proyectos de este usuario
-    *
-    */
-	public static function getProjectsByUser($user_ID){
-		
-
-		$users = Project::getUsers();
-		return Project::where('project_id', '=',$users->project_id);
-
-		
-	}
 	
 }
 ?>
