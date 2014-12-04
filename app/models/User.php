@@ -168,4 +168,12 @@ class User extends Eloquent {
 			return false;
 		}
 	}
+	/*
+	*Agregar la funcion para hacer attach a un proyecto cuando este se crea:
+	* 
+	*http://laravel.com/docs/4.2/eloquent#relationships
+	* en el titulo "Inserting Related Models (Many To Many)"
+	*
+	*/
+	
 }

@@ -25,23 +25,13 @@ class Project extends Eloquent {
 	  *  @author Miguel Calderon
 	  *  @return @post
 	 */
-	public function post(){
+	public function getPost(){
 
 		return $this->hasMany('post');
 
 	}
-	/**
-	* @brief Esta funcion se encarga de retornar la lista de post realacionados al proyecto en su ultima 
-	*	     version
-	* @author Leonel Paulino
-	* @return PostVersion
-	*  @TODO 
-	*/
-	public function getlastPostVersion(){
 
-	}
 	/**
-	  *  //ESTA CLASE EXPLOTA
 	  *  @brief: Esta funcion retorna todos stages que contiene este proyecto
 	  *  @author Miguel Calderon
 	  *  @return @stage
@@ -59,50 +49,111 @@ class Project extends Eloquent {
 	 */
 	public function getRedsocial(){
 
-
 		return $this->hasMany('redsocial');
 	}
+
 	/**
-	  *   //ESTA FUNCION EXPLOTA!!!
+	  *  
 	  *  @brief: Esta funcion retorna los proyectos asignados a un usuario
 	  *  @author Miguel Calderon
 	  *  @return @Projects
 	 */
 	public function getUsers(){
 
-		return $this->$belongsToMany('users', 'project_user_role', 'user_id', 'project_id');
+		return $this->BelongsToMany('user', 'project_user_role', 'user_id', 'project_id');
 
 	}
+
 	/**
-	  *  @brief: Esta funcion retornas todos los usuarios asignados a un proyecto dado un role.
-	  *  @param  Role Role por el cuale se van a buscar los usuarios.
-	  *  @author Leonel Paulino
+	* @brief Esta funcion se encarga de retornar la lista de post relacionados al proyecto en su ultima 
+	*	     version
+	* @author Miguel Calderon
+	* @return PostVersion
+	*/
+	public function getlastPostVersion(){
+
+		$posts = $this->getPost();
+
+		foreach($posts as $posts){
+
+			yield Post::getlastPostVersion($post);
+
+		}
+			
+	}
+
+	/**
+	  *  @brief: Esta funcion retornas todos los usuarios asignados a un proyecto dado un rol.
+	  *  @param  Role rol por el cuale se van a buscar los usuarios.
+	  *  @author 
 	  *  @return @User
 	  *  @TODO 
 	 */
 	public function getUsersByRole($role){
 
+		//Devuelve los ids de los users que tienen ese rol en el proyecto
+		$users = DB::select('select user_id from project_user_role where role_id = ?',array($role->role_id));
+
+
+		foreach($users as $user){
+
+			try {
+				
+				yield  Users::findOrFail($user);
+			
+			}
+
+			catch(Exception $e){
+		
+				return NULL;
+			}
+		
+		}
+
 	}
+
     /*
-    * // ARREGLAR ESTO 
+    * 
     * @brief Crea un nuevo proyecto en la base de datos y lo retorna
     * @author Miguel Calderon
     * @Param $proyectName Nombre del proyecto que se va a crear
     * @Param $proyectDesc Descripcion del proyecto que se va a crear
     * @return El objeto project creado
-    * // ARREGLAR ESTO 
-    *
     */
-	public static function newProject($proyectName ,$proyectDesc ) {
+	public static function newProject($proyectName ,$proyectDesc,$stages,$users) {
 		
 		$nProject = new Project;
 		$nProject->name = $proyectName;
 		$nProject->description =  $proyectDesc;
-	    $nProject->save();
+	    
+		$nProject->stage()->saveMany($stages);
 
-	   return $nProject;
-	   
+		$nProject->user()->attach($users);
+
+		$nProject->push();
+
+		return $nProject;
    	}
+
+   	/*
+    * 
+    * @brief Agrega un nuevo post a un proyecto
+    * @author Miguel Calderon
+    * @Param $project_id el id del proyecto al que se agregara el post
+    * @Param $post post que se agregara al proyecto
+    * @return El proyecto ahora con nuevo post
+    * 
+    *
+    */
+	public static function addPostToProject($project_id,$post) {
+		
+		$project = Project::getProject($project_id);
+		$project->post()->save($post);
+		$project->push();
+
+		return $project;
+   	}
+
 	
 	/*
     *
@@ -110,39 +161,20 @@ class Project extends Eloquent {
     * @author Miguel Calderon
     * @Param $projectID la llave unica por la que se buscara el proyecto
     * @return El proyecto al que pertenece el Id de entrada
-    * //AGREGAR TRY CATCHS
+    * 
     */
 	public static function getProject($projectID){
 		
-		$project = Project::findOrFail($projectID);
-
-		return $project;
-	}
-
-	/*
-	*	//ESTA MALA ESTA FUNCION NO RETORNA PROYECTOS
-    * //CAMBIAR EL NOMBRE A ESTA FUNCION NO ES intuitivo (SUGERENCIA getProjectsByUser )
-    * @brief Devuelve la lista de proyectos de un usuario dado
-    * @author Miguel Calderon
-    * @Param $userID el identificador unico del usuario para buscar
-    * los proyectos que posee
-    * @return Los proyectos de este usuario
-    *
-    */
-	public static function getUserProjects($user_ID){
-		
-
-		$users = $this->getUsers();
-		
-		foreach ($users as $user)
-		{
-			if ( $user->user_id == $user_ID){
-				yield $user;
-
-			}
+		try {
+			return  Project::findOrFail($projectID);
 		}
-		
+
+		catch(Exception $e){
+
+			return NULL;
+		}
 	}
+
 	
 }
 ?>
