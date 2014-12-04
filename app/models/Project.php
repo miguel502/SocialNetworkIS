@@ -76,7 +76,7 @@ class Project extends Eloquent {
 
 		$posts = $this->getPost();
 
-		foreach($post as $posts){
+		foreach($posts as $posts){
 
 			yield Post::getlastPostVersion($post);
 
@@ -121,8 +121,6 @@ class Project extends Eloquent {
     * @Param $proyectName Nombre del proyecto que se va a crear
     * @Param $proyectDesc Descripcion del proyecto que se va a crear
     * @return El objeto project creado
-    * 
-    *
     */
 	public static function newProject($proyectName ,$proyectDesc,$stages,$users,$socialNetwork ) {
 		
