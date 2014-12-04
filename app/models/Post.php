@@ -7,7 +7,7 @@ class Post extends Eloquent {
 	 * @brief La tabla de la base de datos usada por el modelo.
 	 * @author Miguel Saiz
 	 *
-	 * @var string
+	 * @var string 
 	 */
 	protected $table = 'post';
 
@@ -17,7 +17,11 @@ class Post extends Eloquent {
 	* @returns El listado de todas las versiones.
 	*/
 	public function versions() {
+<<<<<<< HEAD
 		return $this->hasMany('postversion');
+=======
+		return $this->hasMany('post_version', 'post_id');
+>>>>>>> UnitTest-Post
 	}
 
 	/*
@@ -64,6 +68,8 @@ class Post extends Eloquent {
 	* @brief Consigue la ultima version de un post dado un id.
 	* @author Miguel Saiz
 	* @returns El PostVersion.
+	* 
+	*  Error de Unit-Test:  Llamada a metodo undefinido (explota)
 	*/
 	public static function getLastVersionByID($postId) {
 		return Post::getPost($postId)->versions->orderBy('created_at', 'desc')->first();
@@ -73,6 +79,8 @@ class Post extends Eloquent {
 	* @brief Consigue la ultima version de un post.
 	* @author Miguel Saiz
 	* @returns El PostVersion.
+	*
+	*  Error de Unit-Test:  Llamada a metodo undefinido (explota)
 	*/
 	public static function getLastVersion($post) {
 		return Post::getLastVersionByID($post->id);
