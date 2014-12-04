@@ -13,9 +13,9 @@ class User  extends Eloquent {
 	 */
 	protected $table = 'Users';
 	/**
-	  *  @brief: Esta funcion retorna todos los post que contiene  este usuario
+	  *  @brief: Esta funcion retorna todos los que este usuario ha hecho.
 	  *  @autor Leonel Paulino
-	  *  @return @posversion
+	  *  @return postversion
 	 */
 	public function getPosts(){
 		return $this->hasMany('postversion');
@@ -28,20 +28,14 @@ class User  extends Eloquent {
 	public function getProjects(){
 			return $this->BelongsToMany('project','project_user_role','user_id','project_id');
 	}
-
-<<<<<<< HEAD
-=======
 	/*
-	* @brief Los posts de los que este usuario esta encargado.
+	* @brief Retorna los posts de los que este usuario esta encargado.
 	* @author Miguel Saiz
-	* @returns El listado de los posts del que este es responsable.
-	* @todo Revisar la documentacion del belong to many. 
+	* @returns El listado de los posts del que este es responsable. 
 	*/
 	public function responsibleForPosts() {
-		return $this->belongsToMany('post', 'project_user_role_post');
+		return $this->belongsToMany('post', 'project_user_role_post','user_id','post_id');
 	}
-	
->>>>>>> FETCH_HEAD
 	/**
 	*	@brief: Crea un nuevo usuario en la base de datos y retorna el usuario creado. 
 	*	@autor Leonel Paulino
@@ -80,11 +74,11 @@ class User  extends Eloquent {
 		}
 	}
 	/**
-	*	@brief Esta funcion se encarga de autetificar el usuario con su contraseña.
+	*	@brief Esta funcion se encarga de autenticar el usuario con su contraseña.
 	*	@autor Leonel Paulino
 	*	@param username nombre de usuario
 	*	@param password contraseña del usuario.
-	* 	@return el usuario  si se pudo autentificar de lo contrario retorna NULL.
+	* 	@return retorna el usuario si se pudo autententicar de lo contrario retorna NULL.
 	*/
 	public static function authentication($username , $password){
 		$user = User::getUser($username);
